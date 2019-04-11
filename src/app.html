@@ -1,0 +1,71 @@
+﻿<div class="container">
+    <h1>
+        FlexGridFilter
+    </h1>
+    <div>
+        This is another code
+        <!-- Trigger the modal with a button -->
+    </div>
+    <div>
+        <wj-flex-grid [itemsSource]="view" allow-sorting="true">
+            <wj-flex-grid-column [header]="'Id'" [binding]="'id'" allow-sorting="true">
+                <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'">
+                    <div>
+                        <span [class]="idSort" (click)="switchSort('id')"></span> Id
+                        <app-filter-by></app-filter-by>
+                    </div>
+                </ng-template>
+            </wj-flex-grid-column>
+            <wj-flex-grid-column [header]="'name'" [binding]="'name'">
+
+                <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
+                    <div>
+                        <span class="wj-glyph-up"></span>Name
+                        <span class="wj-glyph-filter"></span>
+                    </div>
+                </ng-template>
+
+            </wj-flex-grid-column>
+            <wj-flex-grid-column [header]="'code'" [binding]="'code'">
+                <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
+                    <div>
+                        <span class="wj-glyph-up"></span>Code
+                        <span class="wj-glyph-filter"></span>
+                    </div>
+                </ng-template>
+            </wj-flex-grid-column>
+            <wj-flex-grid-column [header]="'address'" [binding]="'address'">
+                <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
+                    <div>
+                        <span class="wj-glyph-up"></span>Address
+                        <span class="wj-glyph-filter"></span>
+                    </div>
+                </ng-template>
+            </wj-flex-grid-column>
+        </wj-flex-grid>
+    </div>
+
+    <wj-flex-grid [itemsSource]="view" [isReadOnly]="false" [allowSorting]="true" [allowAddNew]="true"
+        [allowDelete]="true">
+        <wj-flex-grid-filter></wj-flex-grid-filter>
+    </wj-flex-grid>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <wj-collection-view-pager [cv]="view"></wj-collection-view-pager>
+            <br />
+            <label>
+                Show Dates as GMT
+                <input type="checkbox" [(ngModel)]="view.showDatesAsGmt">
+            </label>
+        </div>
+        <div class="col-md-6">
+            <label>
+                Page Size:
+                <wj-combo-box [itemsSource]="[6, 8, 10, 12, 20, 25, 50, 1000]" [(selectedValue)]="view.pageSize">
+                </wj-combo-box>
+            </label>
+        </div>
+    </div>
+</div>
