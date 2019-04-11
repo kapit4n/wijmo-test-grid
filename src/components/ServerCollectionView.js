@@ -326,7 +326,6 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
             _this.onLoading();
             // get parameters
             var params = _this._getReadParameters();
-            //params['$filter'] = "([code] IN ('Code1')";
             for (var key in _this._keyValueFilters) {
                 var value = _this._keyValueFilters[key];
                 var vals = value.join(",");

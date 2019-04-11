@@ -8,7 +8,7 @@ import {
 // optional module import of wijmo.grid.filter
 import * as wjcFilter from 'wijmo/wijmo.grid.filter';
 
-    function tryGetModuleWijmoGridFilter(): typeof wjcFilter {
+function tryGetModuleWijmoGridFilter(): typeof wjcFilter {
     let m1, m2;
     return (m1 = window['wijmo']) && (m2 = m1['grid']) && m2['filter'];
 }
@@ -317,7 +317,6 @@ export class ServerCollectionViewBase extends CollectionView {
 
     // get the data
     private _getData() {
-
         // get the data on a timeout to avoid doing it too often
         if (this._toGetData) {
             clearTimeout(this._toGetData);
@@ -330,8 +329,6 @@ export class ServerCollectionViewBase extends CollectionView {
 
             // get parameters
             var params = this._getReadParameters();
-
-            //params['$filter'] = "([code] IN ('Code1')";
 
             for (let key in this._keyValueFilters) {
                 let value = this._keyValueFilters[key];
@@ -366,7 +363,7 @@ export class ServerCollectionViewBase extends CollectionView {
                     this._count = response.count;
                     this.sourceCollection = response.value;
 
-                    
+
                     this.refresh();
 
                     // restore cursor position
