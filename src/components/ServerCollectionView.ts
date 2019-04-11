@@ -32,7 +32,7 @@ export class ServerCollectionViewBase extends CollectionView {
 
     _keyValueFilters = {};
     _columnFilters: any;
-    _fieldSort = {fieldId: 'id', dir: "desc"};
+    _fieldSort = {};
 
     constructor(url: string, options?: any) {
         super();

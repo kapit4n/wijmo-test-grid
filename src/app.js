@@ -49,12 +49,11 @@ var AppCmp = /** @class */ (function () {
         });
     }
     AppCmp.prototype.switchSort = function (name) {
-        if (this.view.fieldSort['id'] == name && this.view.fieldSort['dir'] == 'desc') {
-            this.view.fieldSort['dir'] = 'asc';
+        if (this.view.fieldSort[name] && this.view.fieldSort[name] == 'desc') {
+            this.view.fieldSort[name] = 'asc';
         }
         else {
-            this.view.fieldSort['id'] = name;
-            this.view.fieldSort['dir'] = 'desc';
+            this.view.fieldSort[name] = 'desc';
         }
     };
     AppCmp.prototype.pulllData = function () {

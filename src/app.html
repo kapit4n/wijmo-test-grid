@@ -27,8 +27,8 @@
             <wj-flex-grid-column [header]="'code'" [binding]="'code'" allow-sorting="false">
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
                     <div>
-                        <span *ngIf="view.fieldSort.id == 'code' && view.fieldSort.dir == 'asc' ;else other_content" class="wj-glyph-down" (click)="switchSort('code')"></span>
-                        <ng-template #other_content><span class="wj-glyph-up" (click)="switchSort('code')"></span>
+                        <span *ngIf="view.fieldSort.code  && view.fieldSort.code == 'desc' ;else other_content" class="wj-glyph-up" (click)="switchSort('code')"></span>
+                        <ng-template #other_content><span class="wj-glyph-down" (click)="switchSort('code')"></span>
                         </ng-template>
                         Code
                         <app-filter-by (onLoadData)="load($event)" [searchItems]="columnFilters.code" idx="code">
