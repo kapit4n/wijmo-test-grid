@@ -359,6 +359,20 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
                     }
                 }
             }
+            firstTime = true;
+            for (var key in _this._fieldSort) {
+                var value = _this._fieldSort[key];
+                if (value != "") {
+                    var queryBuild = key + " " + value;
+                    if (firstTime) {
+                        params['$filter'] = queryBuild;
+                        firstTime = false;
+                    }
+                    else {
+                        params['$filter'] += " & " + queryBuild;
+                    }
+                }
+            }
             console.log(params);
             for (var k in params) {
                 params[k] = _this._encodeUrl(params[k]);

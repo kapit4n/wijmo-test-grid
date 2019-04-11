@@ -63,6 +63,7 @@ export class AppCmp {
         } else {
             this.view.fieldSort[name] = 'desc';
         }
+        this.view.pullData();
     }
 
     pulllData() {

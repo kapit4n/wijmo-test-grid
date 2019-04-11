@@ -357,6 +357,24 @@ export class ServerCollectionViewBase extends CollectionView {
                     }
                 }
             }
+
+            
+            firstTime = true;
+            for (let key in this._fieldSort) {
+                let value = this._fieldSort[key];
+                if (value != "") {
+                    let queryBuild = `${key} ${value}`;
+                    if (firstTime) {
+                        params['$filter'] = queryBuild;
+                        firstTime =false;
+                    } else {
+                        params['$filter'] += " & " + queryBuild;
+                    }
+                }
+            }
+
+
+
             console.log(params);
 
             for (var k in params) {

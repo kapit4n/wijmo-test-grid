@@ -55,6 +55,7 @@ var AppCmp = /** @class */ (function () {
         else {
             this.view.fieldSort[name] = 'desc';
         }
+        this.view.pullData();
     };
     AppCmp.prototype.pulllData = function () {
         this.view.pullData();

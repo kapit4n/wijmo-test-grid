@@ -11,24 +11,29 @@
             <wj-flex-grid-column [header]="'Id'" [binding]="'id'" allow-sorting="false">
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'">
                     <div>
-                        <span [class]="idSort" (click)="switchSort('id')"></span> Id
+                        <span *ngIf="view.fieldSort.id  && view.fieldSort.id == 'desc' ;else id_down"
+                            class="wj-glyph-up" (click)="switchSort('id')"></span>
+                        <ng-template #id_down><span class="wj-glyph-down" (click)="switchSort('id')"></span>
+                        </ng-template>
                     </div>
                 </ng-template>
             </wj-flex-grid-column>
             <wj-flex-grid-column [header]="'name'" [binding]="'name'">
-
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
                     <div>
-                        <span class="wj-glyph-up"></span>Name
+                            <span *ngIf="view.fieldSort.name  && view.fieldSort.name == 'desc' ;else name_down" class="wj-glyph-up" (click)="switchSort('name')"></span>
+                            <ng-template #name_down><span class="wj-glyph-down" (click)="switchSort('name')"></span>
+                            </ng-template>
+                            Name
                     </div>
                 </ng-template>
-
             </wj-flex-grid-column>
             <wj-flex-grid-column [header]="'code'" [binding]="'code'" allow-sorting="false">
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
                     <div>
-                        <span *ngIf="view.fieldSort.code  && view.fieldSort.code == 'desc' ;else other_content" class="wj-glyph-up" (click)="switchSort('code')"></span>
-                        <ng-template #other_content><span class="wj-glyph-down" (click)="switchSort('code')"></span>
+                        <span *ngIf="view.fieldSort.code  && view.fieldSort.code == 'desc' ;else code_down"
+                            class="wj-glyph-up" (click)="switchSort('code')"></span>
+                        <ng-template #code_down><span class="wj-glyph-down" (click)="switchSort('code')"></span>
                         </ng-template>
                         Code
                         <app-filter-by (onLoadData)="load($event)" [searchItems]="columnFilters.code" idx="code">
@@ -39,7 +44,11 @@
             <wj-flex-grid-column [header]="'address'" [binding]="'address'">
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
                     <div>
-                        <span class="wj-glyph-up"></span>Address
+                        <span *ngIf="view.fieldSort.address  && view.fieldSort.address == 'desc' ;else address_down"
+                            class="wj-glyph-up" (click)="switchSort('address')"></span>
+                        <ng-template #address_down><span class="wj-glyph-down" (click)="switchSort('address')"></span>
+                        </ng-template>
+                        Address
                         <app-filter-by (onLoadData)="load($event)" [searchItems]="columnFilters.address" idx="address">
                         </app-filter-by>
                     </div>
