@@ -28,6 +28,7 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
         _this._filterOnServer = true;
         _this._showDatesAsGmt = false;
         _this._changeCount = 0;
+        _this._keyValueFilters = {};
         _this.loading = new wijmo_1.Event();
         _this.loaded = new wijmo_1.Event();
         _this.error = new wijmo_1.Event();
@@ -143,7 +144,10 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
     ServerCollectionViewBase.prototype.onLoaded = function (e) {
         this.loaded.raise(this, e);
     };
-    ServerCollectionViewBase.prototype.load = function () {
+    ServerCollectionViewBase.prototype.loadWith = function (colId, values) {
+        console.log(colId);
+        console.log(values);
+        this._keyValueFilters[colId] = values.map(function (x) { return "'" + x.value + "'"; });
         this._getData();
     };
     ServerCollectionViewBase.prototype.onError = function (e) {
@@ -305,6 +309,7 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
         // restore settings
         this._canFilter = canFilter;
         this._canSort = canSort;
+        this.sourceCollection;
     };
     // ** implementation
     // get the data
@@ -321,6 +326,14 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
             _this.onLoading();
             // get parameters
             var params = _this._getReadParameters();
+            //params['$filter'] = "([code] IN ('Code1')";
+            for (var key in _this._keyValueFilters) {
+                var value = _this._keyValueFilters[key];
+                var vals = value.join(",");
+                var queryBuild = "[" + key + "] IN (" + vals + ")";
+                params['$filter'] = queryBuild;
+            }
+            console.log(params);
             for (var k in params) {
                 params[k] = _this._encodeUrl(params[k]);
             }

@@ -30,6 +30,8 @@ export class ServerCollectionViewBase extends CollectionView {
     _showDatesAsGmt = false;
     _changeCount = 0;
 
+    _keyValueFilters = {};
+
 
     constructor(url: string, options?: any) {
         super();
@@ -135,7 +137,10 @@ export class ServerCollectionViewBase extends CollectionView {
         this.loaded.raise(this, e);
     }
 
-    load() {
+    loadWith(colId: string, values: any) {
+        console.log(colId);
+        console.log(values);
+        this._keyValueFilters[colId] = values.map(x => "'" + x.value + "'");
         this._getData();
     }
 
@@ -305,6 +310,7 @@ export class ServerCollectionViewBase extends CollectionView {
         // restore settings
         this._canFilter = canFilter;
         this._canSort = canSort;
+        this.sourceCollection
     }
 
     // ** implementation
@@ -317,7 +323,6 @@ export class ServerCollectionViewBase extends CollectionView {
             clearTimeout(this._toGetData);
         }
         this._toGetData = setTimeout(() => {
-
             // start loading
             this._toGetData = null;
             this._loading = true;
@@ -325,6 +330,18 @@ export class ServerCollectionViewBase extends CollectionView {
 
             // get parameters
             var params = this._getReadParameters();
+
+            //params['$filter'] = "([code] IN ('Code1')";
+
+            for (let key in this._keyValueFilters) {
+                let value = this._keyValueFilters[key];
+                let vals = value.join(",");
+                let queryBuild = `[${key}] IN (${vals})`;
+                params['$filter'] = queryBuild;
+            }
+
+            console.log(params);
+
             for (var k in params) {
                 params[k] = this._encodeUrl(params[k]);
             }

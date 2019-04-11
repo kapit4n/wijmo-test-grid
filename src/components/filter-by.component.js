@@ -19,7 +19,7 @@ var FilterByComponent = /** @class */ (function () {
     FilterByComponent.prototype.ngOnInit = function () {
     };
     FilterByComponent.prototype.load = function () {
-        this.onLoadData.emit(this.selectedIds);
+        this.onLoadData.emit({ id: this.idx, vals: this.selectedIds });
     };
     FilterByComponent.prototype.changeVal = function (e, val) {
         if (e.target.checked) {

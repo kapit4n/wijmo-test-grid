@@ -12,14 +12,14 @@ export class FilterByComponent implements OnInit {
   selectedIds: any[] = [];
   @Input() idx: string;
   @Output() onLoadData: EventEmitter<any> = new EventEmitter();
-  
+
   constructor() { }
 
   ngOnInit() {
   }
 
   load() {
-    this.onLoadData.emit(this.selectedIds);
+    this.onLoadData.emit({ id: this.idx, vals: this.selectedIds });
   }
 
   changeVal(e: any, val: any) {

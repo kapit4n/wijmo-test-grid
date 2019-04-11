@@ -16,6 +16,7 @@ import { DataSvc } from './services/DataSvc';
 import { ServerCollectionView } from './components/ServerCollectionView';
 
 import { FilterByComponent } from './components/filter-by.component'
+import { viewClassName } from '@angular/compiler';
 
 'use strict';
 
@@ -85,6 +86,7 @@ export class AppCmp {
     }
 
     load(data: any) {
+        this.view.loadWith(data.id, data.vals);
         console.log(data);
     }
 
