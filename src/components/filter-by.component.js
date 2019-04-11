@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var FilterByComponent = /** @class */ (function () {
     function FilterByComponent() {
         this.filterType = 'values';
+        this.onLoadData = new core_1.EventEmitter();
         this.searchValues = [
             { id: 1, value: 'Data1' },
             { id: 2, value: 'Data2' },
@@ -23,6 +24,9 @@ var FilterByComponent = /** @class */ (function () {
     }
     FilterByComponent.prototype.ngOnInit = function () {
     };
+    FilterByComponent.prototype.load = function () {
+        this.onLoadData.emit("test emit");
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Array)
@@ -31,6 +35,10 @@ var FilterByComponent = /** @class */ (function () {
         core_1.Input(),
         __metadata("design:type", String)
     ], FilterByComponent.prototype, "idx", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", core_1.EventEmitter)
+    ], FilterByComponent.prototype, "onLoadData", void 0);
     FilterByComponent = __decorate([
         core_1.Component({
             selector: 'app-filter-by',

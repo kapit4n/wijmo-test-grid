@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-filter-by',
@@ -9,6 +9,7 @@ export class FilterByComponent implements OnInit {
   filterType = 'values';
   @Input() searchItems: any[];
   @Input() idx: string;
+  @Output() onLoadData: EventEmitter<any> = new EventEmitter();
   searchValues = [
     { id: 1, value: 'Data1' },
     { id: 2, value: 'Data2' },
@@ -20,5 +21,9 @@ export class FilterByComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  load() {
+    this.onLoadData.emit("test emit");
   }
 }

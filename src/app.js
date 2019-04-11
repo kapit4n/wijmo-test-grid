@@ -69,6 +69,9 @@ var AppCmp = /** @class */ (function () {
     AppCmp.prototype.pulllData = function () {
         this.view.pullData();
     };
+    AppCmp.prototype.load = function (data) {
+        console.log(data);
+    };
     Object.defineProperty(AppCmp.prototype, "downloadsColumnFilterType", {
         get: function () {
             return this._downloadsColumnFilterType;

@@ -84,6 +84,10 @@ export class AppCmp {
         this.view.pullData();
     }
 
+    load(data: any) {
+        console.log(data);
+    }
+
     get downloadsColumnFilterType(): wjcGridFilter.FilterType {
         return this._downloadsColumnFilterType;
     }

@@ -348,6 +348,8 @@ export class ServerCollectionViewBase extends CollectionView {
                     // store results
                     this._count = response.count;
                     this.sourceCollection = response.value;
+
+                    
                     this.refresh();
 
                     // restore cursor position
