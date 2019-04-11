@@ -17,7 +17,7 @@
         <div>
           <ul>Select All<input type="checkbox">
             <li *ngFor="let val of searchItems">
-              <input (change)="changeVal($event, val)" type="checkbox">{{val.value}}
+              <input (change)="changeVal($event, val)" type="checkbox">{{val}}
             </li>
           </ul>
         </div>

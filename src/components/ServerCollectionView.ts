@@ -31,6 +31,7 @@ export class ServerCollectionViewBase extends CollectionView {
     _changeCount = 0;
 
     _keyValueFilters = {};
+    _columnFilters: any;
 
 
     constructor(url: string, options?: any) {
@@ -76,6 +77,14 @@ export class ServerCollectionViewBase extends CollectionView {
                 this._getData();
             }
         }
+    }
+
+    get columnFilters() {
+        return this._columnFilters;
+    }
+
+    set columnFilters(value: any) {
+        this._columnFilters = value;
     }
 
     get filterOnServer(): boolean {
@@ -140,7 +149,7 @@ export class ServerCollectionViewBase extends CollectionView {
     loadWith(colId: string, values: any) {
         console.log(colId);
         console.log(values);
-        this._keyValueFilters[colId] = values.map(x => "'" + x.value + "'");
+        this._keyValueFilters[colId] = values.map(x => "'" + x + "'");
         this._getData();
     }
 
@@ -330,13 +339,18 @@ export class ServerCollectionViewBase extends CollectionView {
             // get parameters
             var params = this._getReadParameters();
 
+            let firstTime = true;
             for (let key in this._keyValueFilters) {
                 let value = this._keyValueFilters[key];
                 let vals = value.join(",");
                 let queryBuild = `[${key}] IN (${vals})`;
-                params['$filter'] = queryBuild;
+                if (firstTime) {
+                    params['$filter'] = queryBuild;
+                    firstTime =false;
+                } else {
+                    params['$filter'] += " AND " + queryBuild;
+                }
             }
-
             console.log(params);
 
             for (var k in params) {
@@ -361,6 +375,13 @@ export class ServerCollectionViewBase extends CollectionView {
 
                     // store results
                     this._count = response.count;
+                    
+                    for (let key in response.filterValues) {
+                        this._columnFilters[key] = response.filterValues[key];
+                    }
+                    
+                    console.log(response);
+                    
                     this.sourceCollection = response.value;
 
 

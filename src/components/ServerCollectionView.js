@@ -77,6 +77,16 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ServerCollectionViewBase.prototype, "columnFilters", {
+        get: function () {
+            return this._columnFilters;
+        },
+        set: function (value) {
+            this._columnFilters = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ServerCollectionViewBase.prototype, "filterOnServer", {
         get: function () {
             return this._filterOnServer;
@@ -147,7 +157,7 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
     ServerCollectionViewBase.prototype.loadWith = function (colId, values) {
         console.log(colId);
         console.log(values);
-        this._keyValueFilters[colId] = values.map(function (x) { return "'" + x.value + "'"; });
+        this._keyValueFilters[colId] = values.map(function (x) { return "'" + x + "'"; });
         this._getData();
     };
     ServerCollectionViewBase.prototype.onError = function (e) {
@@ -326,11 +336,18 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
             _this.onLoading();
             // get parameters
             var params = _this._getReadParameters();
+            var firstTime = true;
             for (var key in _this._keyValueFilters) {
                 var value = _this._keyValueFilters[key];
                 var vals = value.join(",");
                 var queryBuild = "[" + key + "] IN (" + vals + ")";
-                params['$filter'] = queryBuild;
+                if (firstTime) {
+                    params['$filter'] = queryBuild;
+                    firstTime = false;
+                }
+                else {
+                    params['$filter'] += " AND " + queryBuild;
+                }
             }
             console.log(params);
             for (var k in params) {
@@ -350,6 +367,10 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
                         _this.pageSize > 0 && response.value.length < _this.pageSize;
                     // store results
                     _this._count = response.count;
+                    for (var key in response.filterValues) {
+                        _this._columnFilters[key] = response.filterValues[key];
+                    }
+                    console.log(response);
                     _this.sourceCollection = response.value;
                     _this.refresh();
                     // restore cursor position

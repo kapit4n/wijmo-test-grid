@@ -32,22 +32,10 @@ var filter_by_component_1 = require("./components/filter-by.component");
 var AppCmp = /** @class */ (function () {
     function AppCmp(dataSvc, http) {
         this.idSort = "wj-glyph-up";
-        this.nameItems = [{ id: 1, value: 'Data1' },
-            { id: 2, value: 'Item Value 2' },
-            { id: 3, value: 'Item Value 3' },
-            { id: 4, value: 'Item Value 4' },
-            { id: 5, value: 'Item Value 5' }];
         this.idItems = [];
-        this.codeItems = [{ id: 1, value: 'Data1' },
-            { id: 2, value: 'Code 2' },
-            { id: 3, value: 'Code 3' },
-            { id: 4, value: 'Code 4' },
-            { id: 5, value: 'Code 5' }];
-        this.addressItems = [{ id: 1, value: 'Data1' },
-            { id: 2, value: 'Address 2' },
-            { id: 3, value: 'Address 3' },
-            { id: 4, value: 'Address 4' },
-            { id: 5, value: 'Address 5' }];
+        this.nameItems = [{ id: 1, value: 'Data1' }, { id: 2, value: 'Item Value 2' }, { id: 3, value: 'Item Value 3' }, { id: 4, value: 'Item Value 4' }, { id: 5, value: 'Item Value 5' }];
+        this.addressItems = [{ id: 1, value: 'Data1' }, { id: 2, value: 'Address 2' }, { id: 3, value: 'Address 3' }, { id: 4, value: 'Address 4' }, { id: 5, value: 'Address 5' }];
+        this.columnFilters = {};
         this._downloadsColumnFilterType = wjcGridFilter.FilterType.Condition;
         this._culture = 'en';
         this.dataSvc = dataSvc;
@@ -56,6 +44,7 @@ var AppCmp = /** @class */ (function () {
         this.countryMap = new wjcGrid.DataMap(new wjcCore.CollectionView(this.dataSvc.getCountryMap()), 'key', 'name');
         this.view = new ServerCollectionView_1.ServerCollectionView('http://localhost:3001/data', {
             pageSize: 12,
+            columnFilters: this.columnFilters
         });
     }
     AppCmp.prototype.switchSort = function (name) {
@@ -71,7 +60,6 @@ var AppCmp = /** @class */ (function () {
     };
     AppCmp.prototype.load = function (data) {
         this.view.loadWith(data.id, data.vals);
-        console.log(data);
     };
     Object.defineProperty(AppCmp.prototype, "downloadsColumnFilterType", {
         get: function () {

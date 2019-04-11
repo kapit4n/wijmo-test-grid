@@ -26,7 +26,7 @@ var FilterByComponent = /** @class */ (function () {
             this.selectedIds.push(val);
         }
         else {
-            this.selectedIds = this.selectedIds.filter(function (x) { return x.id != val.id; });
+            this.selectedIds = this.selectedIds.filter(function (x) { return x != val; });
         }
     };
     __decorate([

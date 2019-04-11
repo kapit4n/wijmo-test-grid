@@ -5,7 +5,6 @@ import * as wjcGridFilter from 'wijmo/wijmo.grid.filter';
 // Angular
 import { Component, EventEmitter, Input, Inject, enableProdMode, ViewChild, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,7 +15,6 @@ import { DataSvc } from './services/DataSvc';
 import { ServerCollectionView } from './components/ServerCollectionView';
 
 import { FilterByComponent } from './components/filter-by.component'
-import { viewClassName } from '@angular/compiler';
 
 'use strict';
 
@@ -32,28 +30,12 @@ export class AppCmp {
     view: ServerCollectionView;
 
     idSort = "wj-glyph-up";
-    nameItems = [{ id: 1, value: 'Data1' },
-    { id: 2, value: 'Item Value 2' },
-    { id: 3, value: 'Item Value 3' },
-    { id: 4, value: 'Item Value 4' },
-    { id: 5, value: 'Item Value 5' }];
-
-    idItems = [];
-
     
-    codeItems = [{ id: 1, value: 'Data1' },
-    { id: 2, value: 'Code 2' },
-    { id: 3, value: 'Code 3' },
-    { id: 4, value: 'Code 4' },
-    { id: 5, value: 'Code 5' }];
-
-    addressItems = [{ id: 1, value: 'Data1' },
-    { id: 2, value: 'Address 2' },
-    { id: 3, value: 'Address 3' },
-    { id: 4, value: 'Address 4' },
-    { id: 5, value: 'Address 5' }];
-
-
+    idItems = [];
+    
+    nameItems = [{ id: 1, value: 'Data1' }, { id: 2, value: 'Item Value 2' }, { id: 3, value: 'Item Value 3' }, { id: 4, value: 'Item Value 4' }, { id: 5, value: 'Item Value 5' }];
+    addressItems = [{ id: 1, value: 'Data1' }, { id: 2, value: 'Address 2' }, { id: 3, value: 'Address 3' }, { id: 4, value: 'Address 4' }, { id: 5, value: 'Address 5' }];
+    columnFilters: any = {};
 
     protected dataSvc: DataSvc;
     protected http: HttpClient;
@@ -70,6 +52,7 @@ export class AppCmp {
 
         this.view = new ServerCollectionView('http://localhost:3001/data', {
             pageSize: 12,
+            columnFilters: this.columnFilters
         });
     }
 
@@ -87,7 +70,6 @@ export class AppCmp {
 
     load(data: any) {
         this.view.loadWith(data.id, data.vals);
-        console.log(data);
     }
 
     get downloadsColumnFilterType(): wjcGridFilter.FilterType {

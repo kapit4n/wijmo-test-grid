@@ -26,7 +26,7 @@ export class FilterByComponent implements OnInit {
     if (e.target.checked) {
       this.selectedIds.push(val);
     } else {
-      this.selectedIds = this.selectedIds.filter(x => x.id != val.id);
+      this.selectedIds = this.selectedIds.filter(x => x != val);
     }
   }
 }
