@@ -31,6 +31,28 @@ export class AppCmp {
     view: ServerCollectionView;
 
     idSort = "wj-glyph-up";
+    nameItems = [{ id: 1, value: 'Data1' },
+    { id: 2, value: 'Item Value 2' },
+    { id: 3, value: 'Item Value 3' },
+    { id: 4, value: 'Item Value 4' },
+    { id: 5, value: 'Item Value 5' }];
+
+    idItems = [];
+
+    
+    codeItems = [{ id: 1, value: 'Data1' },
+    { id: 2, value: 'Code 2' },
+    { id: 3, value: 'Code 3' },
+    { id: 4, value: 'Code 4' },
+    { id: 5, value: 'Code 5' }];
+
+    addressItems = [{ id: 1, value: 'Data1' },
+    { id: 2, value: 'Address 2' },
+    { id: 3, value: 'Address 3' },
+    { id: 4, value: 'Address 4' },
+    { id: 5, value: 'Address 5' }];
+
+
 
     protected dataSvc: DataSvc;
     protected http: HttpClient;
@@ -55,8 +77,11 @@ export class AppCmp {
             this.idSort = 'wj-glyph-down';
         } else {
             this.idSort = 'wj-glyph-up';
-
         }
+    }
+
+    pulllData() {
+        this.view.pullData();
     }
 
     get downloadsColumnFilterType(): wjcGridFilter.FilterType {
@@ -127,8 +152,8 @@ export class AppCmp {
 }
 
 @NgModule({
-    imports: [WjInputModule, WjGridModule, 
-        WjGridFilterModule, BrowserModule, 
+    imports: [WjInputModule, WjGridModule,
+        WjGridFilterModule, BrowserModule,
         FormsModule, HttpClientModule],
     declarations: [AppCmp, FilterByComponent],
     providers: [DataSvc, FilterByComponent],

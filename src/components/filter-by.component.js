@@ -25,8 +25,12 @@ var FilterByComponent = /** @class */ (function () {
     };
     __decorate([
         core_1.Input(),
-        __metadata("design:type", Object)
-    ], FilterByComponent.prototype, "modal", void 0);
+        __metadata("design:type", Array)
+    ], FilterByComponent.prototype, "searchItems", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], FilterByComponent.prototype, "idx", void 0);
     FilterByComponent = __decorate([
         core_1.Component({
             selector: 'app-filter-by',

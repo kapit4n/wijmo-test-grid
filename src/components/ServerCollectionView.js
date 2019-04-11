@@ -58,6 +58,9 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    ServerCollectionViewBase.prototype.pullData = function () {
+        this._getData();
+    };
     Object.defineProperty(ServerCollectionViewBase.prototype, "pageOnServer", {
         get: function () {
             return this._pageOnServer;

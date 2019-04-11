@@ -5,9 +5,10 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './src/components/filter-by.component.html'
 })
 export class FilterByComponent implements OnInit {
-  @Input() modal: any;
   closeResult: string;
   filterType = 'values';
+  @Input() searchItems: any[];
+  @Input() idx: string;
   searchValues = [
     { id: 1, value: 'Data1' },
     { id: 2, value: 'Data2' },

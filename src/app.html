@@ -12,25 +12,23 @@
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'">
                     <div>
                         <span [class]="idSort" (click)="switchSort('id')"></span> Id
-                        <app-filter-by></app-filter-by>
                     </div>
                 </ng-template>
             </wj-flex-grid-column>
             <wj-flex-grid-column [header]="'name'" [binding]="'name'">
-
+                
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
                     <div>
                         <span class="wj-glyph-up"></span>Name
-                        <span class="wj-glyph-filter"></span>
                     </div>
                 </ng-template>
-
+                
             </wj-flex-grid-column>
             <wj-flex-grid-column [header]="'code'" [binding]="'code'">
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
                     <div>
                         <span class="wj-glyph-up"></span>Code
-                        <span class="wj-glyph-filter"></span>
+                        <app-filter-by [searchItems]="codeItems" idx="code1"></app-filter-by>
                     </div>
                 </ng-template>
             </wj-flex-grid-column>
@@ -38,7 +36,7 @@
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
                     <div>
                         <span class="wj-glyph-up"></span>Address
-                        <span class="wj-glyph-filter"></span>
+                        <app-filter-by [searchItems]="addressItems"  idx="address1"></app-filter-by>
                     </div>
                 </ng-template>
             </wj-flex-grid-column>

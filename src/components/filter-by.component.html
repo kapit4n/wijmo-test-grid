@@ -1,10 +1,9 @@
-<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#myModal"><span
+<button type="button" class="btn btn-sm" data-toggle="modal" [attr.data-target]="'#' + idx"><span
     class="wj-glyph-filter"></span></button>
 
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+<div id="{{idx}}" class="modal fade" role="dialog">
   <div class="modal-dialog">
-
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -12,12 +11,12 @@
         <h4 class="modal-title">Modal Header</h4>
       </div>
       <div class="modal-body">
-        <button>Ascending</button>
-        <button>Descending</button><br />
+        <button><span class="wj-glyph-up"></span>Ascending</button>
+        <button><span class="wj-glyph-down"></span>Descending</button><br />
         <input type="text" placeholder="Search" />
         <div>
           <ul>Select All <input type="checkbox">
-            <li *ngFor="let val of searchValues">
+            <li *ngFor="let val of searchItems">
               <input type="checkbox">{{val.value}}</li>
           </ul>
         </div>

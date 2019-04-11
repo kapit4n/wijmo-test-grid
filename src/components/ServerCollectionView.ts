@@ -52,6 +52,11 @@ export class ServerCollectionViewBase extends CollectionView {
     get sortOnServer(): boolean {
         return this._sortOnServer;
     }
+
+    public pullData() {
+        this._getData();
+    }
+
     set sortOnServer(value: boolean) {
         if (value != this._sortOnServer) {
             this._sortOnServer = asBoolean(value);
