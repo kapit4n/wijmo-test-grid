@@ -7,8 +7,8 @@
         <!-- Trigger the modal with a button -->
     </div>
     <div>
-        <wj-flex-grid [itemsSource]="view" allow-sorting="true">
-            <wj-flex-grid-column [header]="'Id'" [binding]="'id'" allow-sorting="true">
+        <wj-flex-grid #grid [itemsSource]="view" allow-sorting="false" (sortingColumn)="gridSort(grid, $event)">
+            <wj-flex-grid-column [header]="'Id'" [binding]="'id'" allow-sorting="false">
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'">
                     <div>
                         <span [class]="idSort" (click)="switchSort('id')"></span> Id
@@ -16,19 +16,25 @@
                 </ng-template>
             </wj-flex-grid-column>
             <wj-flex-grid-column [header]="'name'" [binding]="'name'">
-                
+
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
                     <div>
                         <span class="wj-glyph-up"></span>Name
                     </div>
                 </ng-template>
-                
+
             </wj-flex-grid-column>
-            <wj-flex-grid-column [header]="'code'" [binding]="'code'">
+            <wj-flex-grid-column [header]="'code'" [binding]="'code'" allow-sorting="false">
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
                     <div>
-                        <span class="wj-glyph-up"></span>Code
-                        <app-filter-by (onLoadData)="load($event)" [searchItems]="columnFilters.code" idx="code"></app-filter-by>
+                        <div *ngIf="view.fieldSort.id == 'code' && view.fieldSort.dir == 'asc' ;else other_content">
+                            <span class="wj-glyph-down" (click)="switchSort('code')"></span>
+                        </div>
+                        <ng-template #other_content><span class="wj-glyph-up" (click)="switchSort('code')"></span>
+                        </ng-template>
+                        Code
+                        <app-filter-by (onLoadData)="load($event)" [searchItems]="columnFilters.code" idx="code">
+                        </app-filter-by>
                     </div>
                 </ng-template>
             </wj-flex-grid-column>
@@ -36,18 +42,13 @@
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
                     <div>
                         <span class="wj-glyph-up"></span>Address
-                        <app-filter-by (onLoadData)="load($event)"  [searchItems]="columnFilters.address"  idx="address"></app-filter-by>
+                        <app-filter-by (onLoadData)="load($event)" [searchItems]="columnFilters.address" idx="address">
+                        </app-filter-by>
                     </div>
                 </ng-template>
             </wj-flex-grid-column>
         </wj-flex-grid>
     </div>
-
-    <wj-flex-grid [itemsSource]="view" [isReadOnly]="false" [allowSorting]="true" [allowAddNew]="true"
-        [allowDelete]="true">
-        <wj-flex-grid-filter></wj-flex-grid-filter>
-    </wj-flex-grid>
-
 
     <div class="row">
         <div class="col-md-6">

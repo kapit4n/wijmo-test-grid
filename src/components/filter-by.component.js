@@ -21,6 +21,13 @@ var FilterByComponent = /** @class */ (function () {
     FilterByComponent.prototype.load = function () {
         this.onLoadData.emit({ id: this.idx, vals: this.selectedIds });
     };
+    FilterByComponent.prototype.cancel = function () {
+        //this.onLoadData.emit({ id: this.idx, vals: this.selectedIds });
+    };
+    FilterByComponent.prototype.clear = function () {
+        this.selectedIds = [];
+        this.onLoadData.emit({ id: this.idx, vals: this.selectedIds });
+    };
     FilterByComponent.prototype.changeVal = function (e, val) {
         if (e.target.checked) {
             this.selectedIds.push(val);

@@ -30,6 +30,7 @@ export class AppCmp {
     view: ServerCollectionView;
 
     idSort = "wj-glyph-up";
+    codeSort = "wj-glyph-up";
     
     idItems = [];
     
@@ -57,10 +58,11 @@ export class AppCmp {
     }
 
     switchSort(name: string) {
-        if (this.idSort === 'wj-glyph-up') {
-            this.idSort = 'wj-glyph-down';
+        if (this.view.fieldSort['id'] == name && this.view.fieldSort['dir'] == 'desc') {
+            this.view.fieldSort['dir'] = 'asc';
         } else {
-            this.idSort = 'wj-glyph-up';
+            this.view.fieldSort['id'] = name;
+            this.view.fieldSort['dir'] = 'desc';
         }
     }
 
@@ -85,6 +87,26 @@ export class AppCmp {
                 cf.filterType = this._downloadsColumnFilterType;
             }
         }
+    }
+
+    gridSort(grid: wjcGrid.FlexGrid, event: wjcGrid.CellRangeEventArgs) {
+        event.cancel = true;
+        /*const cv = grid.collectionView;
+        console.log(cv.sortDescriptions.length);
+
+        if (cv.sortDescriptions.length) {
+            const sd = cv.sortDescriptions[0];
+            //this.predicate = sd.property;
+            //this.reverse = sd.ascending;
+            //this.transition();
+        }*/
+    };
+
+    
+    onEvent(event) {
+        console.log("Stop proragacion");
+        console.log(event);
+        event.stopPropagation();
     }
 
     get culture(): string {

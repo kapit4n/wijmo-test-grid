@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { t } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-filter-by',
@@ -21,6 +20,16 @@ export class FilterByComponent implements OnInit {
   load() {
     this.onLoadData.emit({ id: this.idx, vals: this.selectedIds });
   }
+
+  cancel() {
+    //this.onLoadData.emit({ id: this.idx, vals: this.selectedIds });
+  }
+
+  clear() {
+    this.selectedIds = [];
+    this.onLoadData.emit({ id: this.idx, vals: this.selectedIds })
+  }
+
 
   changeVal(e: any, val: any) {
     if (e.target.checked) {

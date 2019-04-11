@@ -29,6 +29,7 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
         _this._showDatesAsGmt = false;
         _this._changeCount = 0;
         _this._keyValueFilters = {};
+        _this._fieldSort = { fieldId: 'id', dir: "desc" };
         _this.loading = new wijmo_1.Event();
         _this.loaded = new wijmo_1.Event();
         _this.error = new wijmo_1.Event();
@@ -83,6 +84,13 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
         },
         set: function (value) {
             this._columnFilters = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ServerCollectionViewBase.prototype, "fieldSort", {
+        get: function () {
+            return this._fieldSort;
         },
         enumerable: true,
         configurable: true
@@ -339,14 +347,16 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
             var firstTime = true;
             for (var key in _this._keyValueFilters) {
                 var value = _this._keyValueFilters[key];
-                var vals = value.join(",");
-                var queryBuild = "[" + key + "] IN (" + vals + ")";
-                if (firstTime) {
-                    params['$filter'] = queryBuild;
-                    firstTime = false;
-                }
-                else {
-                    params['$filter'] += " AND " + queryBuild;
+                if (value != "") {
+                    var vals = value.join(",");
+                    var queryBuild = "[" + key + "] IN (" + vals + ")";
+                    if (firstTime) {
+                        params['$filter'] = queryBuild;
+                        firstTime = false;
+                    }
+                    else {
+                        params['$filter'] += " AND " + queryBuild;
+                    }
                 }
             }
             console.log(params);

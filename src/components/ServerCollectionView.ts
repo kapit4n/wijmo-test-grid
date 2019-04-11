@@ -32,7 +32,7 @@ export class ServerCollectionViewBase extends CollectionView {
 
     _keyValueFilters = {};
     _columnFilters: any;
-
+    _fieldSort = {fieldId: 'id', dir: "desc"};
 
     constructor(url: string, options?: any) {
         super();
@@ -85,6 +85,10 @@ export class ServerCollectionViewBase extends CollectionView {
 
     set columnFilters(value: any) {
         this._columnFilters = value;
+    }
+
+    get fieldSort() {
+        return this._fieldSort;
     }
 
     get filterOnServer(): boolean {
@@ -342,13 +346,15 @@ export class ServerCollectionViewBase extends CollectionView {
             let firstTime = true;
             for (let key in this._keyValueFilters) {
                 let value = this._keyValueFilters[key];
-                let vals = value.join(",");
-                let queryBuild = `[${key}] IN (${vals})`;
-                if (firstTime) {
-                    params['$filter'] = queryBuild;
-                    firstTime =false;
-                } else {
-                    params['$filter'] += " AND " + queryBuild;
+                if (value != "") {
+                    let vals = value.join(",");
+                    let queryBuild = `[${key}] IN (${vals})`;
+                    if (firstTime) {
+                        params['$filter'] = queryBuild;
+                        firstTime =false;
+                    } else {
+                        params['$filter'] += " AND " + queryBuild;
+                    }
                 }
             }
             console.log(params);

@@ -32,6 +32,7 @@ var filter_by_component_1 = require("./components/filter-by.component");
 var AppCmp = /** @class */ (function () {
     function AppCmp(dataSvc, http) {
         this.idSort = "wj-glyph-up";
+        this.codeSort = "wj-glyph-up";
         this.idItems = [];
         this.nameItems = [{ id: 1, value: 'Data1' }, { id: 2, value: 'Item Value 2' }, { id: 3, value: 'Item Value 3' }, { id: 4, value: 'Item Value 4' }, { id: 5, value: 'Item Value 5' }];
         this.addressItems = [{ id: 1, value: 'Data1' }, { id: 2, value: 'Address 2' }, { id: 3, value: 'Address 3' }, { id: 4, value: 'Address 4' }, { id: 5, value: 'Address 5' }];
@@ -48,11 +49,12 @@ var AppCmp = /** @class */ (function () {
         });
     }
     AppCmp.prototype.switchSort = function (name) {
-        if (this.idSort === 'wj-glyph-up') {
-            this.idSort = 'wj-glyph-down';
+        if (this.view.fieldSort['id'] == name && this.view.fieldSort['dir'] == 'desc') {
+            this.view.fieldSort['dir'] = 'asc';
         }
         else {
-            this.idSort = 'wj-glyph-up';
+            this.view.fieldSort['id'] = name;
+            this.view.fieldSort['dir'] = 'desc';
         }
     };
     AppCmp.prototype.pulllData = function () {
@@ -78,6 +80,24 @@ var AppCmp = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    AppCmp.prototype.gridSort = function (grid, event) {
+        event.cancel = true;
+        /*const cv = grid.collectionView;
+        console.log(cv.sortDescriptions.length);
+
+        if (cv.sortDescriptions.length) {
+            const sd = cv.sortDescriptions[0];
+            //this.predicate = sd.property;
+            //this.reverse = sd.ascending;
+            //this.transition();
+        }*/
+    };
+    ;
+    AppCmp.prototype.onEvent = function (event) {
+        console.log("Stop proragacion");
+        console.log(event);
+        event.stopPropagation();
+    };
     Object.defineProperty(AppCmp.prototype, "culture", {
         get: function () {
             return this._culture;
