@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { t } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-filter-by',
@@ -8,22 +9,24 @@ export class FilterByComponent implements OnInit {
   closeResult: string;
   filterType = 'values';
   @Input() searchItems: any[];
+  selectedIds: any[] = [];
   @Input() idx: string;
   @Output() onLoadData: EventEmitter<any> = new EventEmitter();
-  searchValues = [
-    { id: 1, value: 'Data1' },
-    { id: 2, value: 'Data2' },
-    { id: 3, value: 'Data3' },
-    { id: 4, value: 'Data4' },
-    { id: 5, value: 'Data5' }
-  ];
-
+  
   constructor() { }
 
   ngOnInit() {
   }
 
   load() {
-    this.onLoadData.emit("test emit");
+    this.onLoadData.emit(this.selectedIds);
+  }
+
+  changeVal(e: any, val: any) {
+    if (e.target.checked) {
+      this.selectedIds.push(val);
+    } else {
+      this.selectedIds = this.selectedIds.filter(x => x.id != val.id);
+    }
   }
 }

@@ -13,19 +13,21 @@ var core_1 = require("@angular/core");
 var FilterByComponent = /** @class */ (function () {
     function FilterByComponent() {
         this.filterType = 'values';
+        this.selectedIds = [];
         this.onLoadData = new core_1.EventEmitter();
-        this.searchValues = [
-            { id: 1, value: 'Data1' },
-            { id: 2, value: 'Data2' },
-            { id: 3, value: 'Data3' },
-            { id: 4, value: 'Data4' },
-            { id: 5, value: 'Data5' }
-        ];
     }
     FilterByComponent.prototype.ngOnInit = function () {
     };
     FilterByComponent.prototype.load = function () {
-        this.onLoadData.emit("test emit");
+        this.onLoadData.emit(this.selectedIds);
+    };
+    FilterByComponent.prototype.changeVal = function (e, val) {
+        if (e.target.checked) {
+            this.selectedIds.push(val);
+        }
+        else {
+            this.selectedIds = this.selectedIds.filter(function (x) { return x.id != val.id; });
+        }
     };
     __decorate([
         core_1.Input(),
