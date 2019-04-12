@@ -63,6 +63,9 @@ var AppCmp = /** @class */ (function () {
     AppCmp.prototype.load = function (data) {
         this.view.loadWith(data.id, data.vals);
     };
+    AppCmp.prototype.addNewItem = function () {
+        this.view.addNew();
+    };
     Object.defineProperty(AppCmp.prototype, "downloadsColumnFilterType", {
         get: function () {
             return this._downloadsColumnFilterType;

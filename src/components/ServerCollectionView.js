@@ -429,6 +429,7 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
     // parse JSON including dates
     ServerCollectionViewBase.prototype._parseJSON = function (text) {
         var _this = this;
+        console.log(text);
         return JSON.parse(text, function (key, value) {
             if (typeof value == 'string') {
                 var date = null;

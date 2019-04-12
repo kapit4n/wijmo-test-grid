@@ -446,6 +446,7 @@ export class ServerCollectionViewBase extends CollectionView {
 
     // parse JSON including dates
     _parseJSON(text: string): any {
+        console.log(text);
         return JSON.parse(text, (key, value) => {
             if (typeof value == 'string') {
                 var date = null;

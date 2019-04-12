@@ -74,6 +74,10 @@ export class AppCmp {
         this.view.loadWith(data.id, data.vals);
     }
 
+    addNewItem() {
+        this.view.addNew();
+    }
+
     get downloadsColumnFilterType(): wjcGridFilter.FilterType {
         return this._downloadsColumnFilterType;
     }
