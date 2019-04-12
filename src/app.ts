@@ -27,17 +27,12 @@ import { ColTemplateComponent } from './components/col-template.component'
 
 export class AppCmp {
     data: wjcCore.CollectionView;
-    countryMap: wjcGrid.DataMap;
     view: ServerCollectionView;
 
-    idItems = [];
-    
     columnFilters: any = {};
 
     protected dataSvc: DataSvc;
     protected http: HttpClient;
-    private _downloadsColumnFilterType = wjcGridFilter.FilterType.Condition;
-    private _culture = 'en';
 
     @ViewChild('filter') filter: wjcGridFilter.FlexGridFilter;
 
@@ -45,7 +40,6 @@ export class AppCmp {
         this.dataSvc = dataSvc;
         this.http = http;
         this.data = new wjcCore.CollectionView(this.dataSvc.getData());
-        this.countryMap = new wjcGrid.DataMap(new wjcCore.CollectionView(this.dataSvc.getCountryMap()), 'key', 'name');
 
         this.view = new ServerCollectionView('http://localhost:3001/data', {
             pageSize: 12,
@@ -65,91 +59,9 @@ export class AppCmp {
         this.view.addNew();
     }
 
-    get downloadsColumnFilterType(): wjcGridFilter.FilterType {
-        return this._downloadsColumnFilterType;
-    }
-    set downloadsColumnFilterType(value: wjcGridFilter.FilterType) {
-        if (this._downloadsColumnFilterType != value) {
-            this._downloadsColumnFilterType = value;
-            var f = this.filter;
-            if (f) {
-                var col = f.grid.columns.getColumn('downloads'),
-                    cf = f.getColumnFilter(col, true);
-                cf.filterType = this._downloadsColumnFilterType;
-            }
-        }
-    }
-
     gridSort(grid: wjcGrid.FlexGrid, event: wjcGrid.CellRangeEventArgs) {
         event.cancel = true;
-        /*const cv = grid.collectionView;
-        console.log(cv.sortDescriptions.length);
-
-        if (cv.sortDescriptions.length) {
-            const sd = cv.sortDescriptions[0];
-            //this.predicate = sd.property;
-            //this.reverse = sd.ascending;
-            //this.transition();
-        }*/
     };
-
-    
-    onEvent(event) {
-        console.log("Stop proragacion");
-        console.log(event);
-        event.stopPropagation();
-    }
-
-    get culture(): string {
-        return this._culture;
-    }
-    set culture(value: string) {
-        if (this._culture != value) {
-            this._culture = value;
-            this.http.get('scripts/vendor/wijmo.culture.' + this._culture + '.js',
-                {
-                    responseType: 'text'
-                }
-            ).subscribe((code) => {
-                eval(code);
-                wjcCore.Control.invalidateAll();
-            });
-        }
-    }
-
-    saveFilter() {
-        localStorage['filter'] = this.filter.filterDefinition;
-    }
-
-    restoreFilter() {
-        this.filter.filterDefinition = localStorage['filter'];
-        this.updateFilterType();
-    }
-
-    clearFilter() {
-        this.filter.clear();
-        this.updateFilterType();
-    }
-
-    updateFilterType() {
-        var f = this.filter,
-            col = f.grid.columns.getColumn('downloads'),
-            cf = f.getColumnFilter(col, true);
-        this.downloadsColumnFilterType = cf.filterType;
-    }
-
-    // create the filter and expose it to scope for customization
-    initialized(s: wjcGrid.FlexGrid, e: any) {
-        this.filter.filterChanging.addHandler(function () {
-            console.log('filter changing');
-        });
-        this.filter.filterChanged.addHandler(function () {
-            console.log('filter changed');
-        });
-        this.filter.filterApplied.addHandler(function () {
-            console.log('filter applied');
-        });
-    }
 }
 
 @NgModule({
