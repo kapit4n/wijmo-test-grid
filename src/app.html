@@ -13,28 +13,10 @@
                 </ng-template>
             </wj-flex-grid-column>
             <wj-flex-grid-column [header]="'name'" [binding]="'name'">
-                <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
-                    <div>
-                        <span *ngIf="view.fieldSort.name  && view.fieldSort.name == 'desc' ;else name_down"
-                            class="wj-glyph-up" (click)="switchSort('name')"></span>
-                        <ng-template #name_down><span class="wj-glyph-down" (click)="switchSort('name')"></span>
-                        </ng-template>
-                        Name
-                    </div>
-                </ng-template>
+                <app-col-template colName="name" [view]="view" [columnFilters]="columnFilters"></app-col-template>
             </wj-flex-grid-column>
             <wj-flex-grid-column [header]="'code'" [binding]="'code'" allow-sorting="false">
-                <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
-                    <div>
-                        <span *ngIf="view.fieldSort.code  && view.fieldSort.code == 'desc' ;else code_down"
-                            class="wj-glyph-up" (click)="switchSort('code')"></span>
-                        <ng-template #code_down><span class="wj-glyph-down" (click)="switchSort('code')"></span>
-                        </ng-template>
-                        Code
-                        <app-filter-by (onLoadData)="load($event)" [searchItems]="columnFilters.code" idx="code">
-                        </app-filter-by>
-                    </div>
-                </ng-template>
+                <app-col-template colName="code" [view]="view" [columnFilters]="columnFilters"></app-col-template>
             </wj-flex-grid-column>
             <wj-flex-grid-column [header]="'address'" [binding]="'address'">
                 <app-col-template colName="address" [view]="view" [columnFilters]="columnFilters"></app-col-template>
