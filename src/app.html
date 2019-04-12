@@ -1,12 +1,5 @@
 ﻿<div class="container">
-    <h1>
-        FlexGridFilter
-    </h1>
-    <div>
-        This is another code
-        <!-- Trigger the modal with a button -->
-    </div>
-    <div>
+    <div class="row">
         <button (click)="addNewItem()">+</button>
         <wj-flex-grid #grid [itemsSource]="view" allow-sorting="false" (sortingColumn)="gridSort(grid, $event)">
             <wj-flex-grid-column [header]="'Id'" [binding]="'id'" allow-sorting="false">
@@ -22,10 +15,11 @@
             <wj-flex-grid-column [header]="'name'" [binding]="'name'">
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
                     <div>
-                            <span *ngIf="view.fieldSort.name  && view.fieldSort.name == 'desc' ;else name_down" class="wj-glyph-up" (click)="switchSort('name')"></span>
-                            <ng-template #name_down><span class="wj-glyph-down" (click)="switchSort('name')"></span>
-                            </ng-template>
-                            Name
+                        <span *ngIf="view.fieldSort.name  && view.fieldSort.name == 'desc' ;else name_down"
+                            class="wj-glyph-up" (click)="switchSort('name')"></span>
+                        <ng-template #name_down><span class="wj-glyph-down" (click)="switchSort('name')"></span>
+                        </ng-template>
+                        Name
                     </div>
                 </ng-template>
             </wj-flex-grid-column>
@@ -59,15 +53,9 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <wj-collection-view-pager [cv]="view"></wj-collection-view-pager>
             <br />
-            <label>
-                Show Dates as GMT
-                <input type="checkbox" [(ngModel)]="view.showDatesAsGmt">
-            </label>
-        </div>
-        <div class="col-md-6">
             <label>
                 Page Size:
                 <wj-combo-box [itemsSource]="[6, 8, 10, 12, 20, 25, 50, 1000]" [(selectedValue)]="view.pageSize">
