@@ -15,6 +15,7 @@ import { DataSvc } from './services/DataSvc';
 import { ServerCollectionView } from './components/ServerCollectionView';
 
 import { FilterByComponent } from './components/filter-by.component'
+import { ColTemplateComponent } from './components/col-template.component'
 
 'use strict';
 
@@ -29,13 +30,8 @@ export class AppCmp {
     countryMap: wjcGrid.DataMap;
     view: ServerCollectionView;
 
-    idSort = "wj-glyph-up";
-    codeSort = "wj-glyph-up";
-    
     idItems = [];
     
-    nameItems = [{ id: 1, value: 'Data1' }, { id: 2, value: 'Item Value 2' }, { id: 3, value: 'Item Value 3' }, { id: 4, value: 'Item Value 4' }, { id: 5, value: 'Item Value 5' }];
-    addressItems = [{ id: 1, value: 'Data1' }, { id: 2, value: 'Address 2' }, { id: 3, value: 'Address 3' }, { id: 4, value: 'Address 4' }, { id: 5, value: 'Address 5' }];
     columnFilters: any = {};
 
     protected dataSvc: DataSvc;
@@ -55,15 +51,6 @@ export class AppCmp {
             pageSize: 12,
             columnFilters: this.columnFilters
         });
-    }
-
-    switchSort(name: string) {
-        if (this.view.fieldSort[name] && this.view.fieldSort[name] == 'desc') {
-            this.view.fieldSort[name] = 'asc';
-        } else {
-            this.view.fieldSort[name] = 'desc';
-        }
-        this.view.pullData();
     }
 
     pulllData() {
@@ -169,8 +156,8 @@ export class AppCmp {
     imports: [WjInputModule, WjGridModule,
         WjGridFilterModule, BrowserModule,
         FormsModule, HttpClientModule],
-    declarations: [AppCmp, FilterByComponent],
-    providers: [DataSvc, FilterByComponent],
+    declarations: [AppCmp, FilterByComponent, ColTemplateComponent],
+    providers: [DataSvc, FilterByComponent, ColTemplateComponent],
     bootstrap: [AppCmp]
 })
 export class AppModule {

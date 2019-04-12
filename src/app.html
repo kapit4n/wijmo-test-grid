@@ -37,17 +37,7 @@
                 </ng-template>
             </wj-flex-grid-column>
             <wj-flex-grid-column [header]="'address'" [binding]="'address'">
-                <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
-                    <div>
-                        <span *ngIf="view.fieldSort.address  && view.fieldSort.address == 'desc' ;else address_down"
-                            class="wj-glyph-up" (click)="switchSort('address')"></span>
-                        <ng-template #address_down><span class="wj-glyph-down" (click)="switchSort('address')"></span>
-                        </ng-template>
-                        Address
-                        <app-filter-by (onLoadData)="load($event)" [searchItems]="columnFilters.address" idx="address">
-                        </app-filter-by>
-                    </div>
-                </ng-template>
+                <app-col-template colName="address" [view]="view" [columnFilters]="columnFilters"></app-col-template>
             </wj-flex-grid-column>
         </wj-flex-grid>
     </div>

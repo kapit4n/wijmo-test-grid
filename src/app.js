@@ -27,15 +27,12 @@ var wijmo_angular2_input_1 = require("wijmo/wijmo.angular2.input");
 var DataSvc_1 = require("./services/DataSvc");
 var ServerCollectionView_1 = require("./components/ServerCollectionView");
 var filter_by_component_1 = require("./components/filter-by.component");
+var col_template_component_1 = require("./components/col-template.component");
 'use strict';
 // The application root component.
 var AppCmp = /** @class */ (function () {
     function AppCmp(dataSvc, http) {
-        this.idSort = "wj-glyph-up";
-        this.codeSort = "wj-glyph-up";
         this.idItems = [];
-        this.nameItems = [{ id: 1, value: 'Data1' }, { id: 2, value: 'Item Value 2' }, { id: 3, value: 'Item Value 3' }, { id: 4, value: 'Item Value 4' }, { id: 5, value: 'Item Value 5' }];
-        this.addressItems = [{ id: 1, value: 'Data1' }, { id: 2, value: 'Address 2' }, { id: 3, value: 'Address 3' }, { id: 4, value: 'Address 4' }, { id: 5, value: 'Address 5' }];
         this.columnFilters = {};
         this._downloadsColumnFilterType = wjcGridFilter.FilterType.Condition;
         this._culture = 'en';
@@ -48,15 +45,6 @@ var AppCmp = /** @class */ (function () {
             columnFilters: this.columnFilters
         });
     }
-    AppCmp.prototype.switchSort = function (name) {
-        if (this.view.fieldSort[name] && this.view.fieldSort[name] == 'desc') {
-            this.view.fieldSort[name] = 'asc';
-        }
-        else {
-            this.view.fieldSort[name] = 'desc';
-        }
-        this.view.pullData();
-    };
     AppCmp.prototype.pulllData = function () {
         this.view.pullData();
     };
@@ -169,8 +157,8 @@ var AppModule = /** @class */ (function () {
             imports: [wijmo_angular2_input_1.WjInputModule, wijmo_angular2_grid_1.WjGridModule,
                 wijmo_angular2_grid_filter_1.WjGridFilterModule, platform_browser_1.BrowserModule,
                 forms_1.FormsModule, http_1.HttpClientModule],
-            declarations: [AppCmp, filter_by_component_1.FilterByComponent],
-            providers: [DataSvc_1.DataSvc, filter_by_component_1.FilterByComponent],
+            declarations: [AppCmp, filter_by_component_1.FilterByComponent, col_template_component_1.ColTemplateComponent],
+            providers: [DataSvc_1.DataSvc, filter_by_component_1.FilterByComponent, col_template_component_1.ColTemplateComponent],
             bootstrap: [AppCmp]
         })
     ], AppModule);
