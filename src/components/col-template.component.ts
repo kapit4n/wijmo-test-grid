@@ -24,6 +24,7 @@ export class ColTemplateComponent implements OnInit {
   }
 
   load(data: any) {
+    console.log("Load from col template");
     this.view.loadWith(data.id, data.vals);
   }
 

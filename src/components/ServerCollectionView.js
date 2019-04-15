@@ -165,7 +165,12 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
     ServerCollectionViewBase.prototype.loadWith = function (colId, values) {
         console.log(colId);
         console.log(values);
-        this._keyValueFilters[colId] = values.map(function (x) { return "'" + x + "'"; });
+        if (values == 'all') {
+            this._keyValueFilters[colId] = 'all';
+        }
+        else {
+            this._keyValueFilters[colId] = values.map(function (x) { return "'" + x + "'"; });
+        }
         this._getData();
     };
     ServerCollectionViewBase.prototype.onError = function (e) {
@@ -347,7 +352,7 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
             var firstTime = true;
             for (var key in _this._keyValueFilters) {
                 var value = _this._keyValueFilters[key];
-                if (value != "") {
+                if (value != "" && value != 'all') {
                     var vals = value.join(",");
                     var queryBuild = "[" + key + "] IN (" + vals + ")";
                     if (firstTime) {
@@ -365,11 +370,16 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
                 if (value != "") {
                     var queryBuild = key + " " + value;
                     if (firstTime) {
-                        params['$filter'] = queryBuild;
+                        if (params['$filter'] != '') {
+                            params['$filter'] += ' AND ' + queryBuild;
+                        }
+                        else {
+                            params['$filter'] += queryBuild;
+                        }
                         firstTime = false;
                     }
                     else {
-                        params['$filter'] += " & " + queryBuild;
+                        params['$filter'] += " AND " + queryBuild;
                     }
                 }
             }
@@ -392,7 +402,11 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
                     // store results
                     _this._count = response.count;
                     for (var key in response.filterValues) {
-                        _this._columnFilters[key] = response.filterValues[key];
+                        if (!_this._columnFilters[key]) {
+                            _this._columnFilters[key] = response.filterValues[key].map(function (x) {
+                                return { selected: true, value: x };
+                            });
+                        }
                     }
                     console.log(response);
                     _this.sourceCollection = response.value;

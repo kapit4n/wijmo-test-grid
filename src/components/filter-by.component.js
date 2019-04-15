@@ -15,11 +15,17 @@ var FilterByComponent = /** @class */ (function () {
         this.filterType = 'values';
         this.selectedIds = [];
         this.onLoadData = new core_1.EventEmitter();
+        this.selectAll = true;
     }
     FilterByComponent.prototype.ngOnInit = function () {
     };
     FilterByComponent.prototype.load = function () {
-        this.onLoadData.emit({ id: this.idx, vals: this.selectedIds });
+        if (this.selectAll) {
+            this.onLoadData.emit({ id: this.idx, vals: 'all' });
+        }
+        else {
+            this.onLoadData.emit({ id: this.idx, vals: this.selectedIds });
+        }
     };
     FilterByComponent.prototype.cancel = function () {
         //this.onLoadData.emit({ id: this.idx, vals: this.selectedIds });
@@ -28,12 +34,27 @@ var FilterByComponent = /** @class */ (function () {
         this.selectedIds = [];
         this.onLoadData.emit({ id: this.idx, vals: this.selectedIds });
     };
-    FilterByComponent.prototype.changeVal = function (e, val) {
-        if (e.target.checked) {
-            this.selectedIds.push(val);
+    FilterByComponent.prototype.selectAllValues = function () {
+        if (this.selectAll) {
+            this.selectedIds = this.searchItems.map(function (x) { return x.value; });
+            this.searchItems.forEach(function (x) {
+                x.selected = true;
+            });
         }
         else {
-            this.selectedIds = this.selectedIds.filter(function (x) { return x != val; });
+            this.searchItems = this.searchItems.map(function (x) {
+                return { selected: false, value: x.value };
+            });
+            this.selectedIds = [];
+        }
+    };
+    FilterByComponent.prototype.changeVal = function (e, val) {
+        this.selectedIds = this.searchItems.filter(function (x) { return x.selected; }).map(function (x) { return x.value; });
+        if (this.selectedIds.length === this.searchItems.length) {
+            this.selectAll = true;
+        }
+        else {
+            this.selectAll = false;
         }
     };
     __decorate([

@@ -15,9 +15,9 @@
         <button><span class="wj-glyph-down"></span>Descending</button><br />
         <input type="text" placeholder="Search" />
         <div>
-          <ul>Select All<input type="checkbox">
+          <ul>Select All<input  type="checkbox" [(ngModel)]="selectAll" (change)="selectAllValues()">
             <li *ngFor="let val of searchItems">
-              <input (change)="changeVal($event, val)" type="checkbox">{{val}}
+              <input (change)="changeVal($event, val)" [(ngModel)]="val.selected" type="checkbox">{{val.value}}
             </li>
           </ul>
         </div>
