@@ -19,6 +19,14 @@ import { ColTemplateComponent } from './components/col-template.component'
 
 'use strict';
 
+
+interface BentoToolbarItem {
+    label: string,
+    icon: string,
+    action: () => void,
+    disabled: boolean,
+  };
+
 // The application root component.
 @Component({
     selector: 'app-cmp',
@@ -28,6 +36,7 @@ import { ColTemplateComponent } from './components/col-template.component'
 export class AppCmp {
     data: wjcCore.CollectionView;
     view: ServerCollectionView;
+    public toolbarData: BentoToolbarItem[];
 
     columnFilters: any = {};
 
@@ -45,6 +54,35 @@ export class AppCmp {
             pageSize: 12,
             columnFilters: this.columnFilters
         });
+
+
+        this.toolbarData = [{
+            label: "Add",
+            icon: "bento-icon-add",
+            action: () => this.addNewItem(),
+            disabled: false
+          },
+          {
+            label: "Save",
+            icon: "bento-icon-save-outlined",
+            action: () => this.saveEntryCd(),
+            disabled: false
+          },
+          {
+            label: "Delete",
+            icon: "bento-icon-close-circle",
+            action: () => this.delete(),
+            disabled: false
+          }];
+
+    }
+
+    saveEntryCd() {
+        this.pulllData();
+    }
+
+    delete() {
+
     }
 
     pulllData() {

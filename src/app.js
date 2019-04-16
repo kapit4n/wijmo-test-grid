@@ -28,9 +28,11 @@ var ServerCollectionView_1 = require("./components/ServerCollectionView");
 var filter_by_component_1 = require("./components/filter-by.component");
 var col_template_component_1 = require("./components/col-template.component");
 'use strict';
+;
 // The application root component.
 var AppCmp = /** @class */ (function () {
     function AppCmp(dataSvc, http) {
+        var _this = this;
         this.columnFilters = {};
         this.dataSvc = dataSvc;
         this.http = http;
@@ -39,7 +41,30 @@ var AppCmp = /** @class */ (function () {
             pageSize: 12,
             columnFilters: this.columnFilters
         });
+        this.toolbarData = [{
+                label: "Add",
+                icon: "bento-icon-add",
+                action: function () { return _this.addNewItem(); },
+                disabled: false
+            },
+            {
+                label: "Save",
+                icon: "bento-icon-save-outlined",
+                action: function () { return _this.saveEntryCd(); },
+                disabled: false
+            },
+            {
+                label: "Delete",
+                icon: "bento-icon-close-circle",
+                action: function () { return _this.delete(); },
+                disabled: false
+            }];
     }
+    AppCmp.prototype.saveEntryCd = function () {
+        this.pulllData();
+    };
+    AppCmp.prototype.delete = function () {
+    };
     AppCmp.prototype.pulllData = function () {
         this.view.pullData();
     };

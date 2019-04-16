@@ -35,7 +35,16 @@ export class ColTemplateComponent implements OnInit {
 
 
   switchSort(name: string) {
-    if (this.view.fieldSort[name] && this.view.fieldSort[name] == 'desc') {
+    
+    let sortAux = this.view.fieldSort[name];
+    
+    for (let key in this.view.fieldSort) {
+      if (key != name) {
+        delete this.view.fieldSort[key];
+      }
+    }
+
+    if (sortAux && sortAux == 'desc') {
       this.view.fieldSort[name] = 'asc';
     } else {
       this.view.fieldSort[name] = 'desc';

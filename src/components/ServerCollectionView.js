@@ -353,6 +353,7 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
             for (var key in _this._keyValueFilters) {
                 var value = _this._keyValueFilters[key];
                 if (value != "" && value != 'all') {
+                    //value = value.map(x => '"' + x + '"')
                     var vals = value.join(",");
                     var queryBuild = "[" + key + "] IN (" + vals + ")";
                     if (firstTime) {
@@ -365,25 +366,20 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
                 }
             }
             firstTime = true;
+            console.log(_this._fieldSort);
             for (var key in _this._fieldSort) {
                 var value = _this._fieldSort[key];
-                if (value != "") {
+                console.log(value);
+                if (value) {
                     var queryBuild = key + " " + value;
                     if (firstTime) {
-                        if (params['$filter'] != '') {
-                            params['$filter'] += ' AND ' + queryBuild;
-                        }
-                        else {
-                            params['$filter'] += queryBuild;
-                        }
+                        params['$orderby'] = queryBuild;
                         firstTime = false;
-                    }
-                    else {
-                        params['$filter'] += " AND " + queryBuild;
                     }
                 }
             }
-            console.log(params);
+            console.log("orderby");
+            console.log(params['$orderby']);
             for (var k in params) {
                 params[k] = _this._encodeUrl(params[k]);
             }
@@ -402,7 +398,7 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
                     // store results
                     _this._count = response.count;
                     for (var key in response.filterValues) {
-                        if (!_this._columnFilters[key]) {
+                        if (!_this._columnFilters[key] || _this._columnFilters[key].length != response.filterValues[key].length) {
                             _this._columnFilters[key] = response.filterValues[key].map(function (x) {
                                 return { selected: true, value: x };
                             });

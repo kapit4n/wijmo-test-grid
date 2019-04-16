@@ -351,6 +351,7 @@ export class ServerCollectionViewBase extends CollectionView {
             for (let key in this._keyValueFilters) {
                 let value = this._keyValueFilters[key];
                 if (value != ""  && value != 'all') {
+                    //value = value.map(x => '"' + x + '"')
                     let vals = value.join(",");
                     let queryBuild = `[${key}] IN (${vals})`;
                     if (firstTime) {
@@ -361,29 +362,25 @@ export class ServerCollectionViewBase extends CollectionView {
                     }
                 }
             }
-
             
             firstTime = true;
+            console.log(this._fieldSort);
             for (let key in this._fieldSort) {
                 let value = this._fieldSort[key];
-                if (value != "") {
+                console.log(value);
+                if (value) {
                     let queryBuild = `${key} ${value}`;
                     if (firstTime) {
-                        if (params['$filter'] != '') {
-                            params['$filter'] += ' AND ' + queryBuild;
-                        } else {
-                            params['$filter'] += queryBuild;
-                        }
-                        firstTime =false;
-                    } else {
-                        params['$filter'] += " AND " + queryBuild;
+                        params['$orderby'] = queryBuild;
+                        firstTime = false;
                     }
                 }
             }
 
 
-
-            console.log(params);
+            console.log("orderby");
+            
+            console.log(params['$orderby']);
 
             for (var k in params) {
                 params[k] = this._encodeUrl(params[k]);
@@ -409,7 +406,7 @@ export class ServerCollectionViewBase extends CollectionView {
                     this._count = response.count;
                     
                     for (let key in response.filterValues) {
-                        if (!this._columnFilters[key]) {
+                        if (!this._columnFilters[key] || this._columnFilters[key].length != response.filterValues[key].length) {
                             this._columnFilters[key] = response.filterValues[key].map(x => {
                                 return {selected: true, value: x}; 
                             });
