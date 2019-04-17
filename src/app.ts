@@ -38,6 +38,10 @@ export class AppCmp {
     view: ServerCollectionView;
     public toolbarData: BentoToolbarItem[];
 
+    @ViewChild("myGrid")
+    public myGrid: wjcGrid.FlexGrid;
+  
+
     columnFilters: any = {};
 
     protected dataSvc: DataSvc;
@@ -71,18 +75,20 @@ export class AppCmp {
           {
             label: "Delete",
             icon: "bento-icon-close-circle",
-            action: () => this.delete(),
+            action: () => this.delete(this.myGrid),
             disabled: false
           }];
 
     }
 
     saveEntryCd() {
-        this.pulllData();
+        this.view.saveData();
+        //this.pulllData();
     }
 
-    delete() {
-
+    delete(sender: wjcGrid.FlexGrid) {
+        sender.selectedItems[0].isDeleted = true;
+        (<wjcCore.CollectionView>sender.collectionView).remove(sender.selectedItems[0]);
     }
 
     pulllData() {

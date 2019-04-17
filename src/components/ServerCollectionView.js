@@ -30,6 +30,10 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
         _this._changeCount = 0;
         _this._keyValueFilters = {};
         _this._fieldSort = {};
+        _this._editedItems = [];
+        _this._newItems = [];
+        _this._deletedItems = [];
+        _this._noRestFul = true;
         _this.loading = new wijmo_1.Event();
         _this.loaded = new wijmo_1.Event();
         _this.error = new wijmo_1.Event();
@@ -219,8 +223,23 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
         }
         return !e.cancel;
     };
+    ServerCollectionViewBase.prototype.saveData = function () {
+        console.log("SAVE DATA");
+        console.log(this._editedItems);
+        console.log(this._newItems);
+        console.log(this._deletedItems);
+    };
+    ServerCollectionViewBase.prototype.assignNewItem = function () {
+        console.log(this.currentAddItem);
+        this._newItems.push(this.currentAddItem);
+        _super.prototype.commitNew.call(this);
+    };
     ServerCollectionViewBase.prototype.commitNew = function () {
         var _this = this;
+        if (this._noRestFul) {
+            this.assignNewItem();
+            return;
+        }
         // to get new item back as JSON
         var requestHeaders = {
             'Accept': 'application/json'
@@ -256,8 +275,28 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
         // allow base class
         _super.prototype.commitNew.call(this);
     };
+    ServerCollectionViewBase.prototype.assignEdition = function () {
+        var _this = this;
+        if (this._editedItems && this.currentEditItem) {
+            console.log(this.currentEditItem);
+            console.log(this._editedItems);
+            var auxEdited = this._editedItems.find(function (x) { return x.id == _this.currentEditItem.id; });
+            if (auxEdited) {
+                Object.assign(auxEdited, this.currentEditItem);
+            }
+            else {
+                this._editedItems.push(Object.assign({}, this.currentEditItem));
+            }
+            this._notifyItemChanged(this.currentEditItem);
+        }
+        _super.prototype.commitEdit.call(this);
+    };
     ServerCollectionViewBase.prototype.commitEdit = function () {
         var _this = this;
+        if (this._noRestFul) {
+            this.assignEdition();
+            return;
+        }
         // get the edited item back as JSON
         var requestHeaders = {
             'Accept': 'application/json'
@@ -297,6 +336,11 @@ var ServerCollectionViewBase = /** @class */ (function (_super) {
     };
     ServerCollectionViewBase.prototype.remove = function (item) {
         var _this = this;
+        if (this._noRestFul) {
+            this._deletedItems.push(item);
+            _super.prototype.remove.call(this, item);
+            return;
+        }
         // remove from database
         if (item && item != this.currentAddItem) {
             if (this.items.indexOf(item) > -1) {

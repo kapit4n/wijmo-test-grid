@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var wjcCore = require("wijmo/wijmo");
+var wjcGrid = require("wijmo/wijmo.grid");
 var wjcGridFilter = require("wijmo/wijmo.grid.filter");
 // Angular
 var core_1 = require("@angular/core");
@@ -56,14 +57,17 @@ var AppCmp = /** @class */ (function () {
             {
                 label: "Delete",
                 icon: "bento-icon-close-circle",
-                action: function () { return _this.delete(); },
+                action: function () { return _this.delete(_this.myGrid); },
                 disabled: false
             }];
     }
     AppCmp.prototype.saveEntryCd = function () {
-        this.pulllData();
+        this.view.saveData();
+        //this.pulllData();
     };
-    AppCmp.prototype.delete = function () {
+    AppCmp.prototype.delete = function (sender) {
+        sender.selectedItems[0].isDeleted = true;
+        sender.collectionView.remove(sender.selectedItems[0]);
     };
     AppCmp.prototype.pulllData = function () {
         this.view.pullData();
@@ -78,6 +82,10 @@ var AppCmp = /** @class */ (function () {
         event.cancel = true;
     };
     ;
+    __decorate([
+        core_1.ViewChild("myGrid"),
+        __metadata("design:type", wjcGrid.FlexGrid)
+    ], AppCmp.prototype, "myGrid", void 0);
     __decorate([
         core_1.ViewChild('filter'),
         __metadata("design:type", wjcGridFilter.FlexGridFilter)

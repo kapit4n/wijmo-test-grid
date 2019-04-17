@@ -34,6 +34,11 @@ export class ServerCollectionViewBase extends CollectionView {
     _columnFilters: any;
     _fieldSort = {};
 
+    _editedItems = [];
+    _newItems = []
+    _deletedItems = [];
+    _noRestFul = true;
+
     constructor(url: string, options?: any) {
         super();
         this._url = asString(url, false);
@@ -104,6 +109,7 @@ export class ServerCollectionViewBase extends CollectionView {
     get filterDefinition(): string {
         return this._filterDef;
     }
+
     set filterDefinition(value: string) {
         if (value != this._filterDef) {
             this._filterDef = asString(value);
@@ -201,7 +207,27 @@ export class ServerCollectionViewBase extends CollectionView {
         return !e.cancel;
     }
 
+
+    saveData() {
+        console.log("SAVE DATA");
+        console.log(this._editedItems);
+        console.log(this._newItems);
+        console.log(this._deletedItems);
+    }
+
+
+    assignNewItem() {
+        console.log(this.currentAddItem);
+        
+        this._newItems.push(this.currentAddItem);
+        super.commitNew();
+    }
+
     commitNew() {
+        if (this._noRestFul) {
+            this.assignNewItem();
+            return;
+        }
 
         // to get new item back as JSON
         var requestHeaders = {
@@ -241,7 +267,27 @@ export class ServerCollectionViewBase extends CollectionView {
         super.commitNew();
     }
 
+    assignEdition() {
+        if (this._editedItems && this.currentEditItem) {
+            console.log(this.currentEditItem);
+            console.log(this._editedItems);
+
+            let auxEdited = this._editedItems.find(x => x.id == this.currentEditItem.id);
+            if (auxEdited) {
+                Object.assign(auxEdited, this.currentEditItem);
+            } else {
+                this._editedItems.push(Object.assign({}, this.currentEditItem));
+            }
+            this._notifyItemChanged(this.currentEditItem);
+        }
+        super.commitEdit();
+    }
+
     commitEdit() {
+        if (this._noRestFul) {
+            this.assignEdition();
+            return;
+        }
 
         // get the edited item back as JSON
         var requestHeaders = {
@@ -284,6 +330,11 @@ export class ServerCollectionViewBase extends CollectionView {
     }
 
     remove(item: any) {
+        if (this._noRestFul) {
+            this._deletedItems.push(item);
+            super.remove(item);
+            return;        
+        }
 
         // remove from database
         if (item && item != this.currentAddItem) {
@@ -529,7 +580,6 @@ export class ServerCollectionViewBase extends CollectionView {
  * and paginated data from a very simple data service.
  */
 export class ServerCollectionView extends ServerCollectionViewBase {
-
     constructor(url: string, options?: any) {
         super(url);
         if (options) {

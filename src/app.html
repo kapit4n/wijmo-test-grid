@@ -5,7 +5,7 @@
             <button *ngFor="let b of toolbarData" class="btn btn-sm" (click)="b.action()">{{b.label}}</button>
         </div>
 
-        <wj-flex-grid #grid [itemsSource]="view" allow-sorting="false" (sortingColumn)="gridSort(grid, $event)">
+        <wj-flex-grid #myGrid [itemsSource]="view" allow-sorting="false" (sortingColumn)="gridSort(grid, $event)">
             <wj-flex-grid-column [header]="'Id'" [binding]="'id'" allow-sorting="false">
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'">
                     <div>
