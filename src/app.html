@@ -16,13 +16,13 @@
                     </div>
                 </ng-template>
             </wj-flex-grid-column>
-            <wj-flex-grid-column [header]="'name'" [binding]="'name'">
+            <wj-flex-grid-column [header]="'name'" [binding]="'name'" min-width="104">
                 <app-col-template colName="name" [view]="view" [columnFilters]="columnFilters"></app-col-template>
             </wj-flex-grid-column>
             <wj-flex-grid-column [header]="'code'" [binding]="'code'" allow-sorting="false">
                 <app-col-template colName="code" [view]="view" [columnFilters]="columnFilters"></app-col-template>
             </wj-flex-grid-column>
-            <wj-flex-grid-column [header]="'address'" [binding]="'address'">
+            <wj-flex-grid-column [header]="'address'" [binding]="'address'" width="*"  min-width="200">
                 <app-col-template colName="address" [view]="view" [columnFilters]="columnFilters"></app-col-template>
             </wj-flex-grid-column>
         </wj-flex-grid>
@@ -31,7 +31,6 @@
     <div class="row">
         <div class="col-md-12">
             <wj-collection-view-pager [cv]="view"></wj-collection-view-pager>
-            <br />
             <label>
                 Page Size:
                 <wj-combo-box [itemsSource]="[6, 8, 10, 12, 20, 25, 50, 1000]" [(selectedValue)]="view.pageSize">
