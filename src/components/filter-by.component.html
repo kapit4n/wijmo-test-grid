@@ -11,8 +11,8 @@
         <h4 class="modal-title">Filter by {{idx}}</h4>
       </div>
       <div class="modal-body">
-        <button><span class="wj-glyph-up"></span>Ascending</button>
-        <button><span class="wj-glyph-down"></span>Descending</button><br />
+        <button (click)="switchSort1('asc')"><span class="{{'wj-glyph-up'}}"></span>Ascending</button>
+        <button (click)="switchSort1('desc')"><span class="wj-glyph-down"></span>Descending</button><br />
         <input type="text" placeholder="Search" />
         <div>
           <ul>Select All<input  type="checkbox" [(ngModel)]="selectAll" (change)="selectAllValues()">

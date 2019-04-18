@@ -11,6 +11,7 @@ export class FilterByComponent implements OnInit {
   selectedIds: any[] = [];
   @Input() idx: string;
   @Output() onLoadData: EventEmitter<any> = new EventEmitter();
+  @Output() switchSort: EventEmitter<any> = new EventEmitter();
   selectAll: boolean = true;
 
   constructor() { }
@@ -35,6 +36,11 @@ export class FilterByComponent implements OnInit {
     this.onLoadData.emit({ id: this.idx, vals: this.selectedIds })
   }
 
+  switchSort1(cod) {
+    console.log("SwitchSort1: "  + cod)
+    this.switchSort.emit({column: this.idx, value: cod})
+  }
+
   selectAllValues() {
     if (this.selectAll) {
       this.selectedIds = this.searchItems.map(x => x.value);
@@ -57,4 +63,6 @@ export class FilterByComponent implements OnInit {
       this.selectAll = false;
     }
   }
+
+  
 }

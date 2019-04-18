@@ -15,6 +15,7 @@ var FilterByComponent = /** @class */ (function () {
         this.filterType = 'values';
         this.selectedIds = [];
         this.onLoadData = new core_1.EventEmitter();
+        this.switchSort = new core_1.EventEmitter();
         this.selectAll = true;
     }
     FilterByComponent.prototype.ngOnInit = function () {
@@ -33,6 +34,10 @@ var FilterByComponent = /** @class */ (function () {
     FilterByComponent.prototype.clear = function () {
         this.selectedIds = [];
         this.onLoadData.emit({ id: this.idx, vals: this.selectedIds });
+    };
+    FilterByComponent.prototype.switchSort1 = function (cod) {
+        console.log("SwitchSort1: " + cod);
+        this.switchSort.emit({ column: this.idx, value: cod });
     };
     FilterByComponent.prototype.selectAllValues = function () {
         if (this.selectAll) {
@@ -69,6 +74,10 @@ var FilterByComponent = /** @class */ (function () {
         core_1.Output(),
         __metadata("design:type", core_1.EventEmitter)
     ], FilterByComponent.prototype, "onLoadData", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", core_1.EventEmitter)
+    ], FilterByComponent.prototype, "switchSort", void 0);
     FilterByComponent = __decorate([
         core_1.Component({
             selector: 'app-filter-by',

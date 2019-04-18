@@ -5,7 +5,7 @@
         <ng-template #down><span class="wj-glyph-down" (click)="switchSort(colName)"></span>
         </ng-template>
         {{colName}}
-        <app-filter-by (onLoadData)="load($event)" [searchItems]="columnFilters[colName]" [idx]="colName">
+        <app-filter-by (onLoadData)="load($event)" [searchItems]="columnFilters[colName]" (switchSort)="switchSort2($event)" [idx]="colName">
         </app-filter-by>
     </div>
 </ng-template>

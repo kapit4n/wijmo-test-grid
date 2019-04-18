@@ -32,12 +32,29 @@ export class ColTemplateComponent implements OnInit {
     this.view.addNew();
   }
 
+  switchSort2(item: any) {
+    let sortAux = this.view.fieldSort[item.column];
+    for (let key in this.view.fieldSort) {
+      if (key != name) {
+        delete this.view.fieldSort[key];
+      }
+    }
 
-
+    if (!sortAux) {
+      this.view.fieldSort[item.column] = item.value;
+      this.view.pullData();
+    } else {
+      if (sortAux != item.value) {
+        this.view.fieldSort[item.column] = item.value;
+        this.view.pullData();
+      }
+    }
+    
+    console.log(item);
+  }
+    
   switchSort(name: string) {
-    
     let sortAux = this.view.fieldSort[name];
-    
     for (let key in this.view.fieldSort) {
       if (key != name) {
         delete this.view.fieldSort[key];
