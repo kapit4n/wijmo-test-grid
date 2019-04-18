@@ -39,7 +39,6 @@ export class ColTemplateComponent implements OnInit {
         delete this.view.fieldSort[key];
       }
     }
-
     if (!sortAux) {
       this.view.fieldSort[item.column] = item.value;
       this.view.pullData();
@@ -49,8 +48,6 @@ export class ColTemplateComponent implements OnInit {
         this.view.pullData();
       }
     }
-    
-    console.log(item);
   }
     
   switchSort(name: string) {

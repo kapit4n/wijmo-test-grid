@@ -13,13 +13,14 @@
 - edit an item
 - add new item
 - sort is working after move to component
+- delete an item
+- Sort by from modal
 
 
 ### progress
 
 
 ### todo
-- delete an item
 - load by type
   - numbers
   - text

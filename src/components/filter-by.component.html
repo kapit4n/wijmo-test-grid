@@ -4,19 +4,15 @@
 <!-- Modal -->
 <div id="{{idx}}" class="modal" role="dialog">
   <div class="modal-dialog">
-    <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Filter by {{idx}}</h4>
-      </div>
       <div class="modal-body">
-        <button (click)="switchSort1('asc')"><span class="{{'wj-glyph-up'}}"></span>Ascending</button>
-        <button (click)="switchSort1('desc')"><span class="wj-glyph-down"></span>Descending</button><br />
-        <input type="text" placeholder="Search" />
-        <div>
+        <button (click)="sortAction('asc')"><span class="{{'wj-glyph-up'}}"></span>Ascending</button>
+        <button (click)="sortAction('desc')"><span class="wj-glyph-down"></span>Descending</button><br />
+        
+        <input type="text" placeholder="Search" [(ngModel)]="searchText" />
+        <div style="overflow-y:scroll; height:150px;">
           <ul>Select All<input  type="checkbox" [(ngModel)]="selectAll" (change)="selectAllValues()">
-            <li *ngFor="let val of searchItems">
+            <li *ngFor="let val of searchItems | search : searchText">
               <input (change)="changeVal($event, val)" [(ngModel)]="val.selected" type="checkbox">{{val.value}}
             </li>
           </ul>

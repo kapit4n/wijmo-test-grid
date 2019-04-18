@@ -17,6 +17,7 @@ var FilterByComponent = /** @class */ (function () {
         this.onLoadData = new core_1.EventEmitter();
         this.switchSort = new core_1.EventEmitter();
         this.selectAll = true;
+        this.searchText = "";
     }
     FilterByComponent.prototype.ngOnInit = function () {
     };
@@ -35,7 +36,7 @@ var FilterByComponent = /** @class */ (function () {
         this.selectedIds = [];
         this.onLoadData.emit({ id: this.idx, vals: this.selectedIds });
     };
-    FilterByComponent.prototype.switchSort1 = function (cod) {
+    FilterByComponent.prototype.sortAction = function (cod) {
         console.log("SwitchSort1: " + cod);
         this.switchSort.emit({ column: this.idx, value: cod });
     };

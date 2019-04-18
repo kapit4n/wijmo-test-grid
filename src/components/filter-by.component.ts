@@ -13,6 +13,7 @@ export class FilterByComponent implements OnInit {
   @Output() onLoadData: EventEmitter<any> = new EventEmitter();
   @Output() switchSort: EventEmitter<any> = new EventEmitter();
   selectAll: boolean = true;
+  searchText = "";
 
   constructor() { }
 
@@ -36,7 +37,7 @@ export class FilterByComponent implements OnInit {
     this.onLoadData.emit({ id: this.idx, vals: this.selectedIds })
   }
 
-  switchSort1(cod) {
+  sortAction(cod) {
     console.log("SwitchSort1: "  + cod)
     this.switchSort.emit({column: this.idx, value: cod})
   }
