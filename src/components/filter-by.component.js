@@ -18,8 +18,15 @@ var FilterByComponent = /** @class */ (function () {
         this.switchSort = new core_1.EventEmitter();
         this.selectAll = true;
         this.searchText = "";
+        this.byValue = true;
     }
     FilterByComponent.prototype.ngOnInit = function () {
+    };
+    FilterByComponent.prototype.filterByValue = function () {
+        this.byValue = true;
+    };
+    FilterByComponent.prototype.filterByCondition = function () {
+        this.byValue = false;
     };
     FilterByComponent.prototype.load = function () {
         if (this.selectAll) {

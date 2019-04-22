@@ -8,14 +8,28 @@
       <div class="modal-body">
         <button (click)="sortAction('asc')"><span class="{{'wj-glyph-up'}}"></span>Ascending</button>
         <button (click)="sortAction('desc')"><span class="wj-glyph-down"></span>Descending</button><br />
-        
-        <input type="text" placeholder="Search" [(ngModel)]="searchText" />
-        <div style="overflow-y:scroll; height:150px;">
-          <ul>Select All<input  type="checkbox" [(ngModel)]="selectAll" (change)="selectAllValues()">
-            <li *ngFor="let val of searchItems | search : searchText">
-              <input (change)="changeVal($event, val)" [(ngModel)]="val.selected" type="checkbox">{{val.value}}
-            </li>
-          </ul>
+        <div>
+          <button (click)="filterByCondition()">Filter By Condition</button>
+          <button (click)="filterByValue()">Filter By Value</button>
+        </div>
+        <div *ngIf="!byValue">
+          Show itemas where there value <br />
+          <select>
+            <option>equals</option>
+            <option>Begins with</option>
+          </select>
+          <br />
+          <input placeholder="Enter value">
+        </div>
+        <div *ngIf="byValue">
+          <input type="text" placeholder="Search" [(ngModel)]="searchText" />
+          <div style="overflow-y:scroll; height:150px;">
+            <ul>Select All<input  type="checkbox" [(ngModel)]="selectAll" (change)="selectAllValues()">
+              <li *ngFor="let val of searchItems | search : searchText">
+                <input (change)="changeVal($event, val)" [(ngModel)]="val.selected" type="checkbox">{{val.value}}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="modal-footer">

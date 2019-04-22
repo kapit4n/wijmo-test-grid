@@ -14,7 +14,10 @@
 - add new item
 - sort is working after move to component
 - delete an item
-- Sort by from modal
+- Sort from modal
+- search over modal
+- conditions
+  - in
 
 
 ### progress
@@ -32,9 +35,8 @@
   - less than
   - less than and equal
   - between
-  - in
 
 
 # BUGS
 - [FIXED] filter values sending is not working after move to comp
-- 
+- [] asc and desc over modal should need to be applied on apply button

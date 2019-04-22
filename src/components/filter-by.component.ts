@@ -14,11 +14,21 @@ export class FilterByComponent implements OnInit {
   @Output() switchSort: EventEmitter<any> = new EventEmitter();
   selectAll: boolean = true;
   searchText = "";
+  byValue = true;
 
   constructor() { }
 
   ngOnInit() {
   }
+
+  filterByValue() {
+    this.byValue = true;
+  }
+  
+  filterByCondition() {
+    this.byValue = false;
+  }
+
 
   load() {
     if (this.selectAll) {
