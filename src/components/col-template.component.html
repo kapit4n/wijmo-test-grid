@@ -1,12 +1,11 @@
 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
     <div>
-        <span *ngIf="view.fieldSort[colName] == 'desc'"
-            class="wj-glyph-up" (click)="switchSort(colName)"></span>
-        <span *ngIf="view.fieldSort[colName] == 'asc'" class="wj-glyph-down" (click)="switchSort(colName)"></span>
-        <span (click)="switchSort(colName)">
-            {{colName}}
-        </span>
-        <app-filter-by (onLoadData)="load($event)" [searchItems]="columnFilters[colName]" (switchSort)="switchSort2($event)" [idx]="colName">
+        <div style="display: inline-block; width: 100%;" (click)="switchSort(colName)">
+            <span> {{colName}} </span>
+            <span *ngIf="view.fieldSort[colName] == 'asc'" class="wj-glyph-up"></span>
+            <span *ngIf="view.fieldSort[colName] == 'desc'" class="wj-glyph-down"></span>
+        </div>
+        <app-filter-by (onLoadData)="load($event)" [searchItems]="columnFilters[colName]" (switchSort)="switchSort2($event)" [idx]="colName" style="position: relative; top: -5px; right: 30px;">
         </app-filter-by>
     </div>
 </ng-template>

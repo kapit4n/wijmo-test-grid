@@ -1,13 +1,12 @@
-<button type="button" class="btn btn-sm" data-toggle="modal" [attr.data-target]="'#'+idx"><span
-    class="wj-glyph-filter"></span></button>
+<button type="button" class="btn btn-sm" data-toggle="modal" [attr.data-target]="'#'+idx" style="background-color: transparent;"><span class="wj-glyph-filter"></span></button>
 
 <!-- Modal -->
 <div id="{{idx}}" class="modal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <button (click)="sortAction('asc')"><span class="{{'wj-glyph-up'}}"></span>Ascending</button>
-        <button (click)="sortAction('desc')"><span class="wj-glyph-down"></span>Descending</button><br />
+        <button (click)="sortAction('asc')" data-dismiss="modal"><span class="{{'wj-glyph-up'}}"></span>Ascending</button>
+        <button (click)="sortAction('desc')" data-dismiss="modal"><span class="wj-glyph-down"></span>Descending</button><br />
         <div>
           <span class="btn btn-link" [style.background]="byValue ? '' : '#ecf7f9'" (click)="filterByCondition()">Filter By Condition</span>
           <span class="btn btn-link" [style.background]="byValue ? '#ecf7f9' : ''" (click)="filterByValue()">Filter By Value</span>
