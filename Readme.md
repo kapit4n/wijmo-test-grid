@@ -16,12 +16,12 @@
 - delete an item
 - Sort from modal
 - search over modal
-- conditions
+- by value
   - in
 
-
 ### progress
-
+- by conditions
+  - equal
 
 ### todo
 - load by type
@@ -29,14 +29,13 @@
   - text
   - list
 - conditions
-  - equal
   - greater
   - greater or equal
   - less than
   - less than and equal
   - between
 
-
 # BUGS
 - [FIXED] filter values sending is not working after move to comp
-- [] asc and desc over modal should need to be applied on apply button
+- [BUG001] asc and desc over modal should close the modal
+- 

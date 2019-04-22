@@ -9,11 +9,11 @@
         <button (click)="sortAction('asc')"><span class="{{'wj-glyph-up'}}"></span>Ascending</button>
         <button (click)="sortAction('desc')"><span class="wj-glyph-down"></span>Descending</button><br />
         <div>
-          <button (click)="filterByCondition()">Filter By Condition</button>
-          <button (click)="filterByValue()">Filter By Value</button>
+          <span class="btn btn-link" [style.background]="byValue ? '' : '#ecf7f9'" (click)="filterByCondition()">Filter By Condition</span>
+          <span class="btn btn-link" [style.background]="byValue ? '#ecf7f9' : ''" (click)="filterByValue()">Filter By Value</span>
         </div>
         <div *ngIf="!byValue">
-          Show itemas where there value <br />
+          Show items where there value <br />
           <select>
             <option>equals</option>
             <option>Begins with</option>
