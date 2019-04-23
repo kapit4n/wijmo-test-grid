@@ -1,0 +1,5 @@
+<div style="display: inline-block; width: 100%;" (click)="switchSort(colName)">
+    <span> {{colName}} </span>
+    <span *ngIf="view.fieldSort[colName] == 'asc'" class="wj-glyph-up"></span>
+    <span *ngIf="view.fieldSort[colName] == 'desc'" class="wj-glyph-down"></span>
+</div>

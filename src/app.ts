@@ -16,6 +16,7 @@ import { ServerCollectionView } from './components/ServerCollectionView';
 
 import { FilterByComponent } from './components/filter-by.component'
 import { ColTemplateComponent } from './components/col-template.component'
+import { SortableColComponent } from './components/sortable-col.component'
 
 import { SearchPipe } from './components/SearchPipe'
 
@@ -114,8 +115,8 @@ export class AppCmp {
     imports: [WjInputModule, WjGridModule,
         WjGridFilterModule, BrowserModule,
         FormsModule, HttpClientModule],
-    declarations: [AppCmp, FilterByComponent, ColTemplateComponent, SearchPipe],
-    providers: [DataSvc, FilterByComponent, ColTemplateComponent],
+    declarations: [AppCmp, FilterByComponent, ColTemplateComponent, SearchPipe, SortableColComponent],
+    providers: [DataSvc, FilterByComponent, ColTemplateComponent, SortableColComponent],
     bootstrap: [AppCmp]
 })
 export class AppModule {

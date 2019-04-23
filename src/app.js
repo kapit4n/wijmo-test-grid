@@ -28,6 +28,7 @@ var DataSvc_1 = require("./services/DataSvc");
 var ServerCollectionView_1 = require("./components/ServerCollectionView");
 var filter_by_component_1 = require("./components/filter-by.component");
 var col_template_component_1 = require("./components/col-template.component");
+var sortable_col_component_1 = require("./components/sortable-col.component");
 var SearchPipe_1 = require("./components/SearchPipe");
 'use strict';
 ;
@@ -110,8 +111,8 @@ var AppModule = /** @class */ (function () {
             imports: [wijmo_angular2_input_1.WjInputModule, wijmo_angular2_grid_1.WjGridModule,
                 wijmo_angular2_grid_filter_1.WjGridFilterModule, platform_browser_1.BrowserModule,
                 forms_1.FormsModule, http_1.HttpClientModule],
-            declarations: [AppCmp, filter_by_component_1.FilterByComponent, col_template_component_1.ColTemplateComponent, SearchPipe_1.SearchPipe],
-            providers: [DataSvc_1.DataSvc, filter_by_component_1.FilterByComponent, col_template_component_1.ColTemplateComponent],
+            declarations: [AppCmp, filter_by_component_1.FilterByComponent, col_template_component_1.ColTemplateComponent, SearchPipe_1.SearchPipe, sortable_col_component_1.SortableColComponent],
+            providers: [DataSvc_1.DataSvc, filter_by_component_1.FilterByComponent, col_template_component_1.ColTemplateComponent, sortable_col_component_1.SortableColComponent],
             bootstrap: [AppCmp]
         })
     ], AppModule);
