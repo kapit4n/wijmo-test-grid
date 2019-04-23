@@ -19,8 +19,23 @@ var FilterByComponent = /** @class */ (function () {
         this.selectAll = true;
         this.searchText = "";
         this.byValue = true;
+        this.ascBackground = '';
+        this.descBackground = '';
     }
     FilterByComponent.prototype.ngOnInit = function () {
+        var sortAux = this.view.fieldSort[this.idx];
+        if (sortAux == 'asc') {
+            this.ascBackground = 'red';
+            this.descBackground = '';
+        }
+        else if (sortAux == 'desc') {
+            this.ascBackground = '';
+            this.descBackground = 'red';
+        }
+        else {
+            this.ascBackground = '';
+            this.descBackground = '';
+        }
     };
     FilterByComponent.prototype.filterByValue = function () {
         this.byValue = true;
@@ -45,6 +60,14 @@ var FilterByComponent = /** @class */ (function () {
     };
     FilterByComponent.prototype.sortAction = function (cod) {
         console.log("SwitchSort1: " + cod);
+        if (cod == 'asc') {
+            this.ascBackground = 'red';
+            this.descBackground = '';
+        }
+        else if (cod == 'desc') {
+            this.ascBackground = '';
+            this.descBackground = 'red';
+        }
         this.switchSort.emit({ column: this.idx, value: cod });
     };
     FilterByComponent.prototype.selectAllValues = function () {
@@ -86,6 +109,10 @@ var FilterByComponent = /** @class */ (function () {
         core_1.Output(),
         __metadata("design:type", core_1.EventEmitter)
     ], FilterByComponent.prototype, "switchSort", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], FilterByComponent.prototype, "view", void 0);
     FilterByComponent = __decorate([
         core_1.Component({
             selector: 'app-filter-by',

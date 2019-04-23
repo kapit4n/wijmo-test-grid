@@ -15,10 +15,25 @@ export class FilterByComponent implements OnInit {
   selectAll: boolean = true;
   searchText = "";
   byValue = true;
+  ascBackground: string = '';
+  descBackground: string = '';
+  @Input() view: any;
 
   constructor() { }
 
   ngOnInit() {
+    let sortAux = this.view.fieldSort[this.idx];
+    
+    if (sortAux == 'asc') {
+      this.ascBackground = 'red';
+      this.descBackground = '';
+    } else if (sortAux == 'desc') {
+      this.ascBackground = ''; 
+      this.descBackground = 'red'; 
+    } else {
+      this.ascBackground = ''; 
+      this.descBackground = '';
+    }
   }
 
   filterByValue() {
@@ -48,7 +63,14 @@ export class FilterByComponent implements OnInit {
   }
 
   sortAction(cod) {
-    console.log("SwitchSort1: "  + cod)
+    console.log("SwitchSort1: "  + cod);
+    if (cod == 'asc') {
+      this.ascBackground = 'red';
+      this.descBackground = '';
+    } else if (cod == 'desc') {
+      this.ascBackground = ''; 
+      this.descBackground = 'red'; 
+    }
     this.switchSort.emit({column: this.idx, value: cod})
   }
 

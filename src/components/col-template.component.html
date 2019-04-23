@@ -5,7 +5,7 @@
         </div>
         <app-sortable-col *ngIf="isSortable" [view]="view" 
         (onSwitchSort)="switchSort($event)" [colName]="colName"></app-sortable-col>
-        <app-filter-by (onLoadData)="load($event)" 
+        <app-filter-by (onLoadData)="load($event)" [view]="view"
         [searchItems]="columnFilters[colName]" 
         (switchSort)="switchSortFromModal($event)" 
         [idx]="colName" style="position: relative; top: -5px; right: 30px;">

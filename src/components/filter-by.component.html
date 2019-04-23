@@ -5,8 +5,8 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <button (click)="sortAction('asc')" data-dismiss="modal"><span class="{{'wj-glyph-up'}}"></span>Ascending</button>
-        <button (click)="sortAction('desc')" data-dismiss="modal"><span class="wj-glyph-down"></span>Descending</button><br />
+        <span [style.background-color]="ascBackground" class="btn btn-link" (click)="sortAction('asc')" data-dismiss="modal" ><span class="{{'wj-glyph-up'}}"></span>Ascending</span>
+        <span [style.background-color]="descBackground" class="btn btn-link" (click)="sortAction('desc')" data-dismiss="modal"><span class="wj-glyph-down"></span>Descending</span><br />
         <div>
           <span class="btn btn-link" [style.background]="byValue ? '' : '#ecf7f9'" (click)="filterByCondition()">Filter By Condition</span>
           <span class="btn btn-link" [style.background]="byValue ? '#ecf7f9' : ''" (click)="filterByValue()">Filter By Value</span>
