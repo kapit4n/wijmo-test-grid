@@ -12,6 +12,7 @@ export class ColTemplateComponent implements OnInit {
   @Input() view: any;
   @Input() columnFilters: any = {};
   @Input() filter: wjcGridFilter.FlexGridFilter;
+  @Input() isSortable: boolean = false;
 
   constructor() { }
 

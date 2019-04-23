@@ -1,7 +1,14 @@
 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'" let-cell="cell">
     <div>
-        <app-sortable-col [view]="view" (onSwitchSort)="switchSort($event)" [colName]="colName"></app-sortable-col>
-        <app-filter-by (onLoadData)="load($event)" [searchItems]="columnFilters[colName]" (switchSort)="switchSortFromModal($event)" [idx]="colName" style="position: relative; top: -5px; right: 30px;">
+        <div *ngIf="!isSortable" style="display: inline-block; width: 100%;">
+            <span> {{colName}} </span>
+        </div>
+        <app-sortable-col *ngIf="isSortable" [view]="view" 
+        (onSwitchSort)="switchSort($event)" [colName]="colName"></app-sortable-col>
+        <app-filter-by (onLoadData)="load($event)" 
+        [searchItems]="columnFilters[colName]" 
+        (switchSort)="switchSortFromModal($event)" 
+        [idx]="colName" style="position: relative; top: -5px; right: 30px;">
         </app-filter-by>
     </div>
 </ng-template>

@@ -8,16 +8,11 @@
         <wj-flex-grid #myGrid [itemsSource]="view" allow-sorting="false" (sortingColumn)="gridSort(grid, $event)">
             <wj-flex-grid-column [header]="'Id'" [binding]="'id'" allow-sorting="false">
                 <ng-template wjFlexGridCellTemplate [cellType]="'ColumnHeader'">
-                    <div>
-                        <span *ngIf="view.fieldSort.id  && view.fieldSort.id == 'desc' ;else id_down"
-                            class="wj-glyph-up" (click)="switchSort('id')"></span>
-                        <ng-template #id_down><span class="wj-glyph-down" (click)="switchSort('id')"></span>
-                        </ng-template>
-                    </div>
+                    <div> Id </div>
                 </ng-template>
             </wj-flex-grid-column>
             <wj-flex-grid-column [header]="'name'" [binding]="'name'" min-width="104">
-                <app-col-template colName="name" [view]="view" [columnFilters]="columnFilters"></app-col-template>
+                <app-col-template isSortable="true" colName="name" [view]="view" [columnFilters]="columnFilters"></app-col-template>
             </wj-flex-grid-column>
             <wj-flex-grid-column [header]="'code'" [binding]="'code'" allow-sorting="false">
                 <app-col-template colName="code" [view]="view" [columnFilters]="columnFilters"></app-col-template>
